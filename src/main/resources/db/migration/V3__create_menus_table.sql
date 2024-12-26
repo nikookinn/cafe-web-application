@@ -1,6 +1,6 @@
 CREATE TABLE menus (
-                       menuId BIGINT AUTO_INCREMENT PRIMARY KEY,
+                       menu_id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        name VARCHAR(255) NOT NULL,
-                       imageUrl VARCHAR(255),
-                       isActive BOOLEAN NOT NULL DEFAULT TRUE
+                       image_url VARCHAR(255),
+                       is_active BOOLEAN NOT NULL DEFAULT TRUE
 );

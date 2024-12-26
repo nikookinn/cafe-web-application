@@ -1,8 +1,8 @@
 CREATE TABLE categories (
-                            categoryId BIGINT AUTO_INCREMENT PRIMARY KEY,
+                            category_id BIGINT AUTO_INCREMENT PRIMARY KEY,
                             name VARCHAR(255) NOT NULL,
-                            menuId BIGINT NOT NULL,
-                            imageUrl VARCHAR(255),
-                            isActive BOOLEAN NOT NULL DEFAULT TRUE,
-                            FOREIGN KEY (menuId) REFERENCES menus(menuId)
+                            menu_id BIGINT NOT NULL,
+                            image_url VARCHAR(255),
+                            is_active BOOLEAN NOT NULL DEFAULT TRUE,
+                            FOREIGN KEY (menu_id) REFERENCES menus(menu_id)
 );

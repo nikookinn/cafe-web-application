@@ -1,1 +1,0 @@
-ALTER TABLE categories RENAME COLUMN categoryId TO category_id;

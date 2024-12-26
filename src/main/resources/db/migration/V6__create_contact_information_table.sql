@@ -1,9 +1,9 @@
 CREATE TABLE contact_information (
                                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                     cafeName VARCHAR(255),
+                                     cafe_name VARCHAR(255),
                                      about TEXT,
-                                     phoneNumber VARCHAR(20),
+                                     phone_number VARCHAR(20),
                                      address VARCHAR(255),
-                                     workingHours VARCHAR(255),
-                                     websiteImageUrl VARCHAR(255)
+                                     working_hours VARCHAR(255),
+                                     website_image_url VARCHAR(255)
 );
