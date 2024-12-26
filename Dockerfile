@@ -1,4 +1,6 @@
 
+
+
 FROM openjdk:21-jdk-slim
 
 
@@ -13,10 +15,10 @@ COPY pom.xml ./
 RUN ./mvnw dependency:go-offline
 
 
-COPY src/ ./src/
+COPY . .
 
 
 RUN ./mvnw clean package -DskipTests
 
-# Java uygulamasını çalıştırıyoruz
+
 CMD ["java", "-jar", "target/piramida-web-app.jar"]
