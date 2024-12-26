@@ -80,7 +80,18 @@
 			<artifactId>flyway-mysql</artifactId>
 			<version>11.1.0</version>
 		</dependency>
-
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.piramidacafe.website.PiramidaWebAppApplication</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
