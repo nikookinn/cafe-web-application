@@ -75,7 +75,6 @@
 			<artifactId>flyway-core</artifactId>
 			<version>11.1.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
