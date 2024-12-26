@@ -77,4 +77,17 @@ public class ContactInformation {
     public void setWebsiteImageUrl(String websiteImageUrl) {
         this.websiteImageUrl = websiteImageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "ContactInformation{" +
+                "id=" + id +
+                ", cafeName='" + cafeName + '\'' +
+                ", about='" + about + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", workingHours='" + workingHours + '\'' +
+                ", websiteImageUrl='" + websiteImageUrl + '\'' +
+                '}';
+    }
 }

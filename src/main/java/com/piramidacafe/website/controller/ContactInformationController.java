@@ -7,6 +7,8 @@ import com.piramidacafe.website.mapper.ContactInformationMapper;
 import com.piramidacafe.website.model.ContactInformation;
 import com.piramidacafe.website.service.ContactInformationService;
 import com.piramidacafe.website.service.FileStorageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("admin/dashboard")
 public class ContactInformationController {
+
+    Logger logger = LoggerFactory.getLogger(ContactInformation.class);
 
 
     private final FileStorageService fileStorageService;
@@ -36,6 +40,7 @@ public class ContactInformationController {
     public String showDashboardInfoPage(Model model){
         List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
         Optional<ContactInformation> information = contactInfos.stream().findFirst();
+        logger.info(information.get().toString());
         if (information.isEmpty()){
             throw new ContactInfoNotFoundException("There is no contact information");
         }
