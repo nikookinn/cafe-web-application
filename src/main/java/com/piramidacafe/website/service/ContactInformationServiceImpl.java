@@ -4,6 +4,8 @@ import com.piramidacafe.website.model.ContactInformation;
 import com.piramidacafe.website.repository.ContactInformationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContactInformationServiceImpl implements ContactInformationService{
 
@@ -19,8 +21,8 @@ public class ContactInformationServiceImpl implements ContactInformationService{
     }
 
     @Override
-    public ContactInformation getContactInformation() {
-        return contactInformationRepository.findById(17L).orElse(new ContactInformation());
+    public List<ContactInformation> getContactInformation() {
+        return contactInformationRepository.findAll();
     }
 
     @Override
