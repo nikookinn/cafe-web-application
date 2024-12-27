@@ -40,7 +40,6 @@ public class ContactInformationController {
     public String showDashboardInfoPage(Model model){
         List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
         Optional<ContactInformation> information = contactInfos.stream().findFirst();
-        logger.info(information.get().toString());
         if (information.isEmpty()){
             throw new ContactInfoNotFoundException("There is no contact information");
         }
