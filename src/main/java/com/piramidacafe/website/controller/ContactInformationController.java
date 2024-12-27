@@ -49,10 +49,7 @@ public class ContactInformationController {
     @GetMapping("/contact-information")
     public String showContactInformationForm(Model model) {
         List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
-        Optional<ContactInformation> information = contactInfos.stream().findFirst();
-        if (information.isEmpty()){
-            throw new ContactInfoNotFoundException("There is no contact information");
-        }
+        Optional<ContactInformation> information = Optional.of(contactInfos.stream().findFirst().orElse(new ContactInformation()));
         ContactInformationDto dto = contactInformationMapper.toDto(information.get());
 
         dto.setExistingImageUrl(information.get().getWebsiteImageUrl());
@@ -64,10 +61,7 @@ public class ContactInformationController {
     @PostMapping("/contact-information/save")
     public String saveContactInformation(@ModelAttribute("contactInformationDto") ContactInformationDto dto) {
         List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
-        Optional<ContactInformation> eci = contactInfos.stream().findFirst();
-        if (eci.isEmpty()){
-            throw new ContactInfoNotFoundException("There is no contact information");
-        }
+        Optional<ContactInformation> eci = Optional.of(contactInfos.stream().findFirst().orElse(new ContactInformation()));
         String imageUrl = null;
         if (eci.get().getId() !=null){
 
