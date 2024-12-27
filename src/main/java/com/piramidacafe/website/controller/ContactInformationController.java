@@ -39,10 +39,8 @@ public class ContactInformationController {
     @GetMapping()
     public String showDashboardInfoPage(Model model){
         List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
-        Optional<ContactInformation> information = contactInfos.stream().findFirst();
-        if (information.isEmpty()){
-            throw new ContactInfoNotFoundException("There is no contact information");
-        }
+        Optional<ContactInformation> information = Optional.of(contactInfos.stream().findFirst().orElse(new ContactInformation()));
+        logger.info(information.get().toString());
         ContactInformationDto contactInformationDto = contactInformationMapper.toDto(information.get());
         model.addAttribute("contactInformationDto", contactInformationDto);
         return "dashboard/info-dashboard";
