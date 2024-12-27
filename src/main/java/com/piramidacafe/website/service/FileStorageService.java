@@ -21,7 +21,7 @@ public class FileStorageService {
 
     Logger logger = LoggerFactory.getLogger(FileStorageService.class);
 
-    @Value("${app.image.upload.dir:./static/images}")
+    @Value("${app.image.upload.dir:/app/images}")
     private String uploadDir;
 
     // Store the file after processing (cropping and resizing)
@@ -30,7 +30,7 @@ public class FileStorageService {
             throw new IllegalArgumentException("File is empty or null.");
         }
 
-        // Full target directory
+        // Full target directory, appending the subdirectory (e.g., app_images or menu_images)
         String targetDir = uploadDir + "/" + subDirectory;
 
         // Create a unique file name
@@ -38,8 +38,8 @@ public class FileStorageService {
         Path filePath = Paths.get(targetDir, fileName);
 
         try {
-            // Ensure the directory exists
-            Files.createDirectories(Paths.get(targetDir));
+            // Ensure the directory exists (creating app_images or menu_images if necessary)
+            Files.createDirectories(filePath.getParent());
 
             BufferedImage originalImage = ImageIO.read(file.getInputStream());
 
@@ -55,7 +55,7 @@ public class FileStorageService {
             // Compress and save the image
             saveCompressedImage(originalImage, filePath);
 
-            // Return the file's URL
+            // Return the file's URL (adjust URL to match the file path)
             return "/images/" + subDirectory + "/" + fileName;
         } catch (IOException e) {
             throw new RuntimeException("Could not save file: " + file.getOriginalFilename(), e);
@@ -80,17 +80,12 @@ public class FileStorageService {
 
     // Resize the image while maintaining the aspect ratio
     private BufferedImage resizeImage(BufferedImage originalImage, int newWidth) {
-        // Get the size of the cropped image
         int width = originalImage.getWidth();
         int height = originalImage.getHeight();
 
-        // Calculate the new height to maintain the aspect ratio
         int newHeight = (height * newWidth) / width;
-
-        // Create a scaled instance of the image
         Image scaledImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 
-        // Create a new buffered image with the correct size
         BufferedImage bufferedScaledImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = bufferedScaledImage.createGraphics();
         g2d.drawImage(scaledImage, 0, 0, null);
@@ -102,11 +97,8 @@ public class FileStorageService {
     // Compress and save the image as a JPEG
     private void saveCompressedImage(BufferedImage image, Path path) throws IOException {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            // Save the image in JPEG format with compression
             ImageIO.write(image, "JPEG", byteArrayOutputStream);
             byte[] imageBytes = byteArrayOutputStream.toByteArray();
-
-            // Write the image to the file system
             Files.write(path, imageBytes);
             logger.info("Image successfully stored on path " + path);
         }
@@ -117,18 +109,14 @@ public class FileStorageService {
         String fileName = null;
         if (existingImageUrl != null && !existingImageUrl.isEmpty()) {
             if (subDirectory.equals("app_images")){
-                 fileName = existingImageUrl.replace("/images/app_images", "");
+                fileName = existingImageUrl.replace("/images/app_images", "");
             } else if (subDirectory.equals("menu_images")) {
                 fileName = existingImageUrl.replace("/images/menu_images", "");
             }
 
-
-            // Construct the file path
             String filePath = uploadDir + "/" + subDirectory + "/" + fileName;
-
             File file = new File(filePath);
 
-            // Check if the file exists and delete it
             if (file.exists()) {
                 boolean deleted = file.delete();
                 if (!deleted) {
@@ -142,3 +130,4 @@ public class FileStorageService {
         }
     }
 }
+
