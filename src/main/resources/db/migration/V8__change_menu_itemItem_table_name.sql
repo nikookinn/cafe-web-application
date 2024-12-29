@@ -1,0 +1,1 @@
+ALTER TABLE menuItems RENAME TO items;
