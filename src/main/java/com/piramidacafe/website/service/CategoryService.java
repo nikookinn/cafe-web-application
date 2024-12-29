@@ -1,6 +1,10 @@
 package com.piramidacafe.website.service;
 
+import com.piramidacafe.website.dto.CategoryDto;
+import com.piramidacafe.website.dto.SimpleCategoryDto;
 import com.piramidacafe.website.model.Category;
+import com.piramidacafe.website.model.Menu;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,5 +20,11 @@ public interface CategoryService {
 
     void updateItem(Category category);
 
-    void markCategoryAsInactive(int id);
+
+    Page<Category> getAllActiveCategories(int page, int size);
+
+
+    Category getCategoryByIdFromDB(Long id);
+
+    List<SimpleCategoryDto> getCategoriesByMenuId(Long menuId);
 }

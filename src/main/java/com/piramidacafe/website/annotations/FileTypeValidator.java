@@ -15,9 +15,9 @@ public class FileTypeValidator implements ConstraintValidator<ValidImageFile, Mu
         if (multipartFile == null || multipartFile.isEmpty()){
             return true;
         }
+
         String fileName = multipartFile.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-
         return extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") || extension.equals("png");
     }
 }

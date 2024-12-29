@@ -112,6 +112,8 @@ public class FileStorageService {
                 fileName = existingImageUrl.replace("/images/app_images", "");
             } else if (subDirectory.equals("menu_images")) {
                 fileName = existingImageUrl.replace("/images/menu_images", "");
+            } else if (subDirectory.equals("category_images")) {
+                fileName = existingImageUrl.replace("/images/category_images","");
             }
 
             String filePath = uploadDir + "/" + subDirectory + "/" + fileName;

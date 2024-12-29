@@ -78,7 +78,7 @@ public class MenuController {
             throw new MenuNotFoundException("Menu with ID " + menuDto.getMenuId() + " not found");
         }
         Menu menu = existingMenu.get();
-        String imageUrl = existingMenu.get().getImageUrl();
+        String imageUrl = menu.getImageUrl();
         if (menuDto.getMenuImage() !=null && !menuDto.getMenuImage().isEmpty()){
             fileStorageService.deleteOldImage(imageUrl,ImageDirectory.MENU_IMAGES.getDirectory());
             imageUrl = fileStorageService.storeFile(menuDto.getMenuImage(), ImageDirectory.MENU_IMAGES.getDirectory());

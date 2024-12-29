@@ -8,53 +8,54 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f3f4f6;
-            font-family: Arial, sans-serif;
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            font-family: 'Roboto', sans-serif;
+            padding: 0;
+            margin: 0;
         }
 
         .dashboard-container {
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .card-custom {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.8);
             border: none;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            backdrop-filter: blur(20px);
         }
 
         .card-custom img {
-            border-radius: 15px 15px 0 0;
             width: 100%;
-            max-height: 300px;
+            max-height: 250px;
             object-fit: cover;
         }
 
         .card-body-custom {
-            padding: 20px 30px;
+            padding: 20px;
         }
 
         .card-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #333;
-            margin-bottom: 15px;
         }
 
-        .card-text {
-            font-size: 1.1rem;
+        .info-item {
+            font-size: 1rem;
             color: #555;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
         }
 
         .icon {
             color: #007bff;
             margin-right: 10px;
-        }
-
-        .info-item {
-            margin-bottom: 15px;
+            font-size: 1.2rem;
         }
 
         .btn-custom {
@@ -64,37 +65,54 @@
             font-size: 1rem;
             padding: 10px 20px;
             border-radius: 50px;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
             transition: 0.3s ease;
         }
 
         .btn-custom:hover {
             background: #0056b3;
-            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
         }
 
-        .info-label {
+        .dashboard-header h1 {
+            font-size: 2rem;
             font-weight: bold;
-            color: #007bff;
+            margin-bottom: 10px;
         }
 
-        .dashboard-header {
-            text-align: center;
-            margin-bottom: 40px;
+        .dashboard-header p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .info-item {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
-<div th:replace="~{dashboard/dashboard-header :: navbar}"></div>
+<!-- Navbar Section -->
+<div class="container-fluid p-0">
+    <div th:replace="~{dashboard/dashboard-header :: navbar}"></div>
+</div>
+
+<!-- Main Content -->
 <div class="container dashboard-container">
-    <div class="dashboard-header">
+    <div class="dashboard-header text-center">
         <h1>Contact Information Dashboard</h1>
         <p class="text-muted">Here is a detailed overview of your cafe's information.</p>
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
+        <div class="col-12 col-md-10 col-lg-8">
             <div class="card card-custom">
                 <div class="card-custom-image">
                     <img th:if="${contactInformationDto.existingImageUrl != null}"
@@ -102,7 +120,7 @@
                          alt="Cafe Image">
                     <div th:unless="${contactInformationDto.existingImageUrl != null}"
                          class="d-flex justify-content-center align-items-center"
-                         style="height: 300px; background-color: #f0f0f0; border-radius: 15px;">
+                         style="height: 250px; background-color: #f0f0f0;">
                         <span class="text-muted">No Image Available</span>
                     </div>
                 </div>
@@ -111,23 +129,19 @@
                     <h2 class="card-title text-center" th:text="${contactInformationDto.cafeName}"></h2>
                     <div class="info-item">
                         <i class="fas fa-info-circle icon"></i>
-                        <span class="info-label">About:</span>
-                        <span th:text="${contactInformationDto.about}"></span>
+                        <span><strong>About:</strong> <span th:text="${contactInformationDto.about}"></span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-phone icon"></i>
-                        <span class="info-label">Phone Number:</span>
-                        <span th:text="${contactInformationDto.phoneNumber}"></span>
+                        <span><strong>Phone Number:</strong> <span th:text="${contactInformationDto.phoneNumber}"></span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-map-marker-alt icon"></i>
-                        <span class="info-label">Address:</span>
-                        <span th:text="${contactInformationDto.address}"></span>
+                        <span><strong>Address:</strong> <span th:text="${contactInformationDto.address}"></span></span>
                     </div>
                     <div class="info-item">
                         <i class="fas fa-clock icon"></i>
-                        <span class="info-label">Working Hours:</span>
-                        <span th:text="${contactInformationDto.workingHours}"></span>
+                        <span><strong>Working Hours:</strong> <span th:text="${contactInformationDto.workingHours}"></span></span>
                     </div>
                 </div>
             </div>

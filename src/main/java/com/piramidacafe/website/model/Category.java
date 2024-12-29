@@ -75,4 +75,16 @@ public class Category {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", name='" + name + '\'' +
+                ", menu=" + menu +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", menuItems=" + menuItems +
+                ", isActive=" + isActive +
+                '}';
+    }
 }
