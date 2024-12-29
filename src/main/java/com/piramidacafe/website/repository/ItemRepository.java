@@ -17,17 +17,17 @@ import java.util.Optional;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("""
     SELECT new com.piramidacafe.website.dto.SimpleMenuDto(
-        i.itemId, 
-        i.name, 
-        i.price, 
-        i.description, 
-        i.imageUrl, 
-        m.name, 
+        i.itemId,
+        i.name,
+        i.price,
+        i.description,
+        i.imageUrl,
+        m.name,
         c.name
     )
     FROM Item i
-    JOIN i.category c
-    JOIN c.menu m
+    JOIN Category c on i.category.categoryId=c.categoryId
+    JOIN Menu m on c.menu.menuId=m.menuId
     WHERE i.isActive = true
     """)
     Page<SimpleMenuDto> findAllByIsActiveIsTrue(Pageable pageable);
