@@ -2,10 +2,10 @@ package com.piramidacafe.website.controller;
 
 import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.MenuDto;
-import com.piramidacafe.website.exeption.MenuNotFoundException;
+import com.piramidacafe.website.exception.MenuNotFoundException;
 import com.piramidacafe.website.mapper.MenuMapper;
 import com.piramidacafe.website.model.Menu;
-import com.piramidacafe.website.service.FileStorageService;
+import com.piramidacafe.website.service.serviceImpl.FileStorageService;
 import com.piramidacafe.website.service.MenuService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -18,13 +18,13 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("admin/dashboard/menu")
-public class MenuController {
+public class MenuDashboardController {
 
     private final MenuService menuService;
     private final MenuMapper menuMapper;
     private final FileStorageService fileStorageService;
 
-    public MenuController(MenuService menuService, MenuMapper menuMapper, FileStorageService fileStorageService) {
+    public MenuDashboardController(MenuService menuService, MenuMapper menuMapper, FileStorageService fileStorageService) {
         this.menuService = menuService;
         this.menuMapper = menuMapper;
         this.fileStorageService = fileStorageService;
@@ -101,7 +101,6 @@ public class MenuController {
         existingMenu.get().setActive(false);
         menuService.save(existingMenu.get());
         return "redirect:/admin/dashboard/menu";
-
     }
 
 

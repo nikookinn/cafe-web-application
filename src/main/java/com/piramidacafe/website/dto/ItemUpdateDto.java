@@ -1,7 +1,6 @@
 package com.piramidacafe.website.dto;
 
 import com.piramidacafe.website.model.Category;
-import jakarta.persistence.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;

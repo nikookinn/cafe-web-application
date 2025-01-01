@@ -2,6 +2,7 @@ package com.piramidacafe.website.config.securityConfig;
 
 import com.piramidacafe.website.model.User;
 import com.piramidacafe.website.repository.UserRepository;
+import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 
 import java.util.Optional;
 
@@ -56,6 +58,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
+                 .addFilterBefore(new ServletRequiestWrapperFilter(), SecurityContextHolderAwareRequestFilter.class)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/admin/**").authenticated();
                     auth.anyRequest().permitAll();

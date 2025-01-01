@@ -1,19 +1,20 @@
-package com.piramidacafe.website.service;
+package com.piramidacafe.website.service.serviceImpl;
 
-import com.piramidacafe.website.Helper.ImageDirectory;
-import com.piramidacafe.website.dto.CategoryDto;
 import com.piramidacafe.website.dto.SimpleCategoryDto;
-import com.piramidacafe.website.exeption.CategoryNotFoundException;
+import com.piramidacafe.website.exception.CategoryNotFoundException;
 import com.piramidacafe.website.model.Category;
 import com.piramidacafe.website.repository.CategoryRepository;
+import com.piramidacafe.website.service.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
 
     private final CategoryRepository categoryRepository;
@@ -59,6 +60,14 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<SimpleCategoryDto> getCategoriesByMenuId(Long menuId) {
         return categoryRepository.findCategoriesByMenuIdAndIsActiveTrue(menuId);
+    }
+
+    @Override
+    public List<SimpleCategoryDto> getAllActiveCategoriesByMenuName(String name) {
+        List<Category> categories = categoryRepository.getAllActiveCategoriesByMenuName(name);
+        return categories.stream()
+                .map(category -> new SimpleCategoryDto(category.getCategoryId(), category.getName()))
+                .collect(Collectors.toList());
     }
 
 

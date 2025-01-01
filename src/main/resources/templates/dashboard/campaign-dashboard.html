@@ -16,9 +16,9 @@
 <div class="container">
     <div class="header-section d-flex justify-content-between align-items-center flex-wrap gap-3">
         <h1 class="page-title m-0">Menu Categories</h1>
-        <a th:href="@{/admin/dashboard/item/add}" class="btn btn-primary">
+        <a th:href="@{/admin/dashboard/campaign/add}" class="btn btn-primary">
             <i class="bi bi-plus-lg"></i>
-            <span>Add Item</span>
+            <span>Add Campaign</span>
         </a>
     </div>
 
@@ -27,71 +27,56 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Item Name <i class="bi bi-caret-up-fill sort-icon"></i></th>
-                    <th>Price <i class="bi bi-caret-up-fill sort-icon"></i></th>
-                    <th>Description <i class="bi bi-caret-up-fill sort-icon"></i></th>
-                    <th>Category <i class="bi bi-caret-up-fill sort-icon"></i></th>
-                    <th>Menu <i class="bi bi-caret-up-fill sort-icon"></i></th>
-                    <th>Image <i class="bi bi-caret-up-fill sort-icon"></i></th>
+                    <th>Campaign Name <i class="bi bi-caret-up-fill sort-icon"></i></th>
+                    <th>Campaign Image <i class="bi bi-caret-up-fill sort-icon"></i></th>
                     <th>Actions</th>
 
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="item : ${itemPage.content}">
-                    <td data-label="Item Name" th:text="${item.name}"></td>
-                    <td data-label="Price" th:text="${item.price}"></td>
-                    <td class="description-cell">
-                        <div class="truncated-text description-trigger"
-                             th:data-description="${item.description}"
-                             th:text="${item.description}"
-                             onclick="showFullDescription(this)">
-                        </div>
-                    </td>
-
-                    <td data-label="Category Name" th:text="${item.categoryName}"></td>
-                    <td data-label="Menu Name" th:text="${item.menuName}"></td>
+                <tr th:each="campaign : ${campaignPage.content}">
+                    <td data-label="Item Name" th:text="${campaign.name}"></td>
                     <td>
-                        <img th:src="${item.imageUrl}" alt="Item Image" class="menu-image">
+                        <img th:src="${campaign.imageUrl}" alt="Item Image" class="menu-image">
                     </td>
                     <td data-label="Actions">
                         <div class="action-buttons">
-                            <a th:href="@{/admin/dashboard/item/update/{id}(id=${item.itemId})}"
+                            <a th:href="@{/admin/dashboard/campaign/update/{id}(id=${campaign.campaignId})}"
                                class="btn btn-warning">
                                 <i class="bi bi-pencil"></i>
                                 <span class="d-none d-sm-inline">Edit</span>
                             </a>
                             <button class="btn btn-danger"
-                                    th:onclick="|confirmDelete('/admin/dashboard/item/delete/' + ${item.itemId})|">
+                                    th:onclick="|confirmDelete('/admin/dashboard/campaign/delete/' + ${campaign.campaignId})|">
                                 <i class="bi bi-trash"></i>
                                 <span class="d-none d-sm-inline">Delete</span>
                             </button>
                         </div>
                     </td>
                 </tr>
-                <tr th:if="${itemPage.content.size() == 0}">
-                    <td colspan="4" class="text-center py-4">No categories available.</td>
+                <tr th:if="${campaignPage.content.size() == 0}">
+                    <td colspan="4" class="text-center py-4">No campaigns available.</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <div th:if="${itemPage.totalPages > 1}" class="pagination-wrapper">
+    <div th:if="${campaignPage.totalPages > 1}" class="pagination-wrapper">
         <nav>
             <ul class="pagination">
-                <li class="page-item" th:classappend="${itemPage.hasPrevious() ? '' : 'disabled'}">
-                    <a class="page-link" th:href="@{/admin/dashboard/item(page=${itemPage.number - 1}, size=${itemPage.size})}">
+                <li class="page-item" th:classappend="${campaignPage.hasPrevious() ? '' : 'disabled'}">
+                    <a class="page-link" th:href="@{/admin/dashboard/campaign(page=${campaignPage.number - 1}, size=${campaignPage.size})}">
                         <i class="bi bi-chevron-left"></i>
                     </a>
                 </li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(0, itemPage.totalPages - 1)}"
-                    th:classappend="${i == itemPage.number ? 'active' : ''}">
-                    <a class="page-link" th:href="@{/admin/dashboard/item(page=${i}, size=${itemPage.size})}"
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, campaignPage.totalPages - 1)}"
+                    th:classappend="${i == campaignPage.number ? 'active' : ''}">
+                    <a class="page-link" th:href="@{/admin/dashboard/campaign(page=${i}, size=${campaignPage.size})}"
                        th:text="${i + 1}"></a>
                 </li>
-                <li class="page-item" th:classappend="${itemPage.hasNext() ? '' : 'disabled'}">
-                    <a class="page-link" th:href="@{/admin/dashboard/item(page=${itemPage.number + 1}, size=${itemPage.size})}">
+                <li class="page-item" th:classappend="${campaignPage.hasNext() ? '' : 'disabled'}">
+                    <a class="page-link" th:href="@{/admin/dashboard/campaign(page=${campaignPage.number + 1}, size=${campaignPage.size})}">
                         <i class="bi bi-chevron-right"></i>
                     </a>
                 </li>
@@ -172,7 +157,7 @@
 
     function confirmDelete(deleteUrl) {
         Swal.fire({
-            title: 'Delete Category?',
+            title: 'Delete Campaign?',
             text: "This action cannot be undone",
             icon: 'warning',
             showCancelButton: true,

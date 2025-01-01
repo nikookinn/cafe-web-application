@@ -1,20 +1,21 @@
-package com.piramidacafe.website.service;
+package com.piramidacafe.website.service.serviceImpl;
 
-import com.piramidacafe.website.dto.ItemDto;
 import com.piramidacafe.website.dto.ItemUpdateDto;
+import com.piramidacafe.website.dto.SimpleItemDto;
 import com.piramidacafe.website.dto.SimpleMenuDto;
-import com.piramidacafe.website.exeption.ItemNotFoundException;
+import com.piramidacafe.website.exception.ItemNotFoundException;
 import com.piramidacafe.website.mapper.ItemMapper;
 import com.piramidacafe.website.model.Item;
 import com.piramidacafe.website.repository.ItemRepository;
+import com.piramidacafe.website.service.ItemService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @Service
-public class ItemServiceImpl implements ItemService{
+public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
     private final ItemMapper itemMapper;
@@ -43,6 +44,16 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public List<Item> getActiveItemsByCategory(String catName) {
         return null;
+    }
+
+    @Override
+    public List<SimpleItemDto> getAllActiveItemsByCategoryName(String catName) {
+        return itemRepository.findAllItemsByCategoryNameAndIsActiveIsTrue(catName);
+    }
+
+    @Override
+    public List<SimpleItemDto> getAllActiveItemsByCategoryId(int id) {
+        return itemRepository.findAllItemsByCategoryIdAndIsActiveIsTrue(id);
     }
 
     @Override

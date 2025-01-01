@@ -1,4 +1,4 @@
-package com.piramidacafe.website.exeption;
+package com.piramidacafe.website.exception;
 
 public class CategoryNotFoundException  extends RuntimeException{
     public CategoryNotFoundException(String message) {

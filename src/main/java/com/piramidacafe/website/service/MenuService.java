@@ -1,5 +1,6 @@
 package com.piramidacafe.website.service;
 
+import com.piramidacafe.website.dto.MenuDto;
 import com.piramidacafe.website.model.Menu;
 import org.springframework.data.domain.Page;
 
@@ -18,4 +19,6 @@ public interface MenuService {
 
 
     Page<Menu> getAllActiveMenus(int page, int size);
+
+    MenuDto getMenuByNameIfIsActive(String menuName);
 }

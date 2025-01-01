@@ -1,14 +1,12 @@
 package com.piramidacafe.website.repository;
 
-import com.piramidacafe.website.dto.ItemDto;
+import com.piramidacafe.website.dto.SimpleItemDto;
 import com.piramidacafe.website.dto.SimpleMenuDto;
 import com.piramidacafe.website.model.Item;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -34,4 +32,29 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
 
     Optional<Item> findByItemIdAndIsActiveIsTrue(int id);
+
+    @Query("""
+    SELECT new com.piramidacafe.website.dto.SimpleItemDto(
+        i.itemId,
+        i.name,
+        i.price,
+        i.description,
+        i.imageUrl
+    )
+    FROM Item i
+    WHERE i.category.name=:categoryName AND i.isActive = true
+    """)
+    List<SimpleItemDto> findAllItemsByCategoryNameAndIsActiveIsTrue(String categoryName);
+    @Query("""
+    SELECT new com.piramidacafe.website.dto.SimpleItemDto(
+        i.itemId,
+        i.name,
+        i.price,
+        i.description,
+        i.imageUrl
+    )
+    FROM Item i
+    WHERE i.category.categoryId=:id AND i.isActive = true
+    """)
+    List<SimpleItemDto> findAllItemsByCategoryIdAndIsActiveIsTrue(int id);
 }

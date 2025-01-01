@@ -2,11 +2,10 @@ package com.piramidacafe.website.controller;
 
 import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.ContactInformationDto;
-import com.piramidacafe.website.exeption.ContactInfoNotFoundException;
 import com.piramidacafe.website.mapper.ContactInformationMapper;
 import com.piramidacafe.website.model.ContactInformation;
 import com.piramidacafe.website.service.ContactInformationService;
-import com.piramidacafe.website.service.FileStorageService;
+import com.piramidacafe.website.service.serviceImpl.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("admin/dashboard")
-public class ContactInformationController {
+public class ContactDashboardController {
 
     Logger logger = LoggerFactory.getLogger(ContactInformation.class);
 
@@ -30,7 +29,7 @@ public class ContactInformationController {
     private final ContactInformationMapper contactInformationMapper;
     private final ContactInformationService contactInformationService;
 
-    public ContactInformationController(FileStorageService fileStorageService, ContactInformationMapper contactInformationMapper, ContactInformationService contactInformationService) {
+    public ContactDashboardController(FileStorageService fileStorageService, ContactInformationMapper contactInformationMapper, ContactInformationService contactInformationService) {
         this.fileStorageService = fileStorageService;
         this.contactInformationMapper = contactInformationMapper;
         this.contactInformationService = contactInformationService;

@@ -1,13 +1,14 @@
-package com.piramidacafe.website.service;
+package com.piramidacafe.website.service.serviceImpl;
 
 import com.piramidacafe.website.model.ContactInformation;
 import com.piramidacafe.website.repository.ContactInformationRepository;
+import com.piramidacafe.website.service.ContactInformationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ContactInformationServiceImpl implements ContactInformationService{
+public class ContactInformationServiceImpl implements ContactInformationService {
 
     private final ContactInformationRepository contactInformationRepository;
 

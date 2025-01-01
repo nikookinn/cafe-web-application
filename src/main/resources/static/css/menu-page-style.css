@@ -1,0 +1,96 @@
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+.footer a {
+    color: #6c757d;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1); /* Daha büyük gölge */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 6px 12px rgba(0, 0, 0, 0.15); /* Hover'da daha da büyük gölge */
+}
+
+
+
+.card img {
+    border-top-left-radius: 12px; /* Resim köşelerini yuvarlatır */
+    border-top-right-radius: 12px;
+    max-height: 180px; /* Resim yüksekliğini sınırlandırır */
+    object-fit: cover; /* Resmi kart alanına göre keser */
+}
+
+.card-body {
+    background-color: #1a1a1a; /* Hafif bir arka plan rengi */
+    padding: 15px; /* İçeriği sıkıştırır */
+    text-align: center; /* Ortalar */
+}
+
+.card-title {
+    color: #ffffff; /* Daha belirgin bir metin rengi */
+    font-size: 18px; /* Yazı boyutunu küçültür */
+    font-family: "Roboto";
+    font-weight: bold; /* Kalınlığı korur */
+    white-space: nowrap; /* Tek satırda tutar */
+    overflow: hidden; /* Taşan yazıları gizler */
+    text-overflow: ellipsis; /* Üç nokta ekler */
+    text-align: center; /* Yazıyı ortalar */
+    margin: 0; /* Gereksiz boşlukları kaldırır */
+}
+
+.card-link {
+    text-decoration: none; /* Alt çizgiyi kaldırır */
+    color: inherit; /* Link rengini kart renginde tutar */
+}
+
+.card:hover .card-body {
+    background-color: #1a1a1a; /* Hover'da kartın arka planını değiştirir */
+}
+.footer a:hover {
+    color: #ffc107; /* Hover rengini sarıya değiştirir */
+    text-decoration: underline; /* Hover'da altını çizer */
+}
+
+.footer i {
+    font-size: 1.5rem; /* Sosyal medya simgelerinin boyutu */
+    transition: transform 0.3s ease; /* Hover animasyonu */
+}
+
+.footer i:hover {
+    transform: scale(1.2); /* Hover'da büyütme efekti */
+}
+.footer {
+    background-image: url('https://img.freepik.com/premium-photo/glass-beer-dark-background_51530-93.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}

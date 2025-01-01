@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500;600&display=swap');
+
+.menu-title {
+    font-family: 'Playfair Display', serif;
+}
+.mf-size{
+    font-size: 1rem;
+    color: khaki;
+}
+
+.body-font {
+    font-family: 'Poppins', sans-serif;
+}
+
+.category-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    border-radius: 1rem;
+    transition: all 0.3s ease, transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    margin: 0rem 0rem;
+}
+
+.category-btn.active {
+    background: rgb(0, 52, 82);
+    color: #ffffff;
+}
+
+.category-btn:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(79, 70, 229, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s ease-out;
+    z-index: 0;
+}
+.category-btn:active:before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.category-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+
+.description-container {
+    margin: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: rgb(33, 37, 41);
+    transition: transform 0.3s ease-in-out;
+    padding: 0.75rem 1rem;
+    max-height: 70%; /* Reduced max height */
+    overflow-y: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
+.menu-card {
+    background-color: rgb(33, 37, 41);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.5);
+    width: auto;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.description-container.expanded {
+    transform: translateY(-50%);
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.description-container::after {
+    margin: 0;
+    padding: 0;
+    content: '↑ Read more';
+    display: none;
+    text-align: center;
+    color: #d26400;
+    font-size: 1rem;
+}
+
+.description-container.has-more::after {
+    display: block;
+}
+
+.description-container.expanded::after {
+    content: '↓ Show less';
+}
+
+.menu-item-name {
+    font-size: 0.9rem;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.text-sm {
+    font-size: 0.7rem;
+    line-height: 1;
+}
+
+.text-gray-300 {
+    color: #a6a6a6;
+}
+.footer a:hover {
+    color: #ffc107;
+    text-decoration: underline;
+}
+
+.footer i {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.footer i:hover {
+    transform: scale(1.2);
+}
+.footer {
+    background-image: url('https://img.freepik.com/premium-photo/glass-beer-dark-background_51530-93.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}

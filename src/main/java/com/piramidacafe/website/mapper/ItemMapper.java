@@ -6,8 +6,6 @@ import com.piramidacafe.website.model.Category;
 import com.piramidacafe.website.model.Item;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 public class ItemMapper {
 

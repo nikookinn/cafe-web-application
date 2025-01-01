@@ -1,37 +1,30 @@
 package com.piramidacafe.website.controller;
 
-import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.CategoryDto;
-import com.piramidacafe.website.dto.MenuDto;
-import com.piramidacafe.website.exeption.CategoryNotFoundException;
-import com.piramidacafe.website.exeption.MenuNotFoundException;
 import com.piramidacafe.website.mapper.CategoryMapper;
 import com.piramidacafe.website.model.Category;
 import com.piramidacafe.website.model.Menu;
-import com.piramidacafe.website.service.CategoryFileServiceImpl;
+import com.piramidacafe.website.service.serviceImpl.CategoryFileServiceImpl;
 import com.piramidacafe.website.service.CategoryService;
-import com.piramidacafe.website.service.FileStorageService;
 import com.piramidacafe.website.service.MenuService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/dashboard/category")
-public class CategoryController {
+public class CategoryDashboardController {
 
     private final CategoryService categoryService;
     private final MenuService menuService;
     private final CategoryMapper categoryMapper;
     private final CategoryFileServiceImpl fileService;
 
-    public CategoryController(CategoryService categoryService, MenuService menuService, CategoryMapper categoryMapper, CategoryFileServiceImpl fileService) {
+    public CategoryDashboardController(CategoryService categoryService, MenuService menuService, CategoryMapper categoryMapper, CategoryFileServiceImpl fileService) {
         this.categoryService = categoryService;
         this.menuService = menuService;
         this.categoryMapper = categoryMapper;

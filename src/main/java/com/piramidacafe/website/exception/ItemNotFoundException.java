@@ -1,4 +1,4 @@
-package com.piramidacafe.website.exeption;
+package com.piramidacafe.website.exception;
 
 public class ItemNotFoundException extends RuntimeException{
     public ItemNotFoundException(String message) {

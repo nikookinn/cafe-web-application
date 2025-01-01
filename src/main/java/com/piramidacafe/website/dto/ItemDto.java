@@ -1,9 +1,6 @@
 package com.piramidacafe.website.dto;
 
 import com.piramidacafe.website.annotations.ValidImageFile;
-import com.piramidacafe.website.model.Category;
-import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;

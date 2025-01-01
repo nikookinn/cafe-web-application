@@ -1,4 +1,4 @@
-package com.piramidacafe.website.service;
+package com.piramidacafe.website.service.serviceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +44,12 @@ public class FileStorageService {
             BufferedImage originalImage = ImageIO.read(file.getInputStream());
 
             // If it's not "app_image" directory, crop and resize the image
-            if (!subDirectory.equals("app_images")) {
+            if (subDirectory.equals("campaign_images")) {
+                originalImage = resizeToAspectRatio(originalImage, 1080, 1920);
+            } else if (!subDirectory.equals("app_images")) {
                 BufferedImage croppedImage = cropToSquare(originalImage);
                 originalImage = resizeImage(croppedImage, 800);
             } else {
-                // Only resize if it's "app_image" directory, no cropping
                 originalImage = resizeImage(originalImage, 800);
             }
 
@@ -130,6 +131,18 @@ public class FileStorageService {
                 logger.info("File does not exist: " + filePath);
             }
         }
+    }
+    private BufferedImage resizeToAspectRatio(BufferedImage originalImage, int targetWidth, int targetHeight) {
+        Image scaledImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+        BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D g2d = resizedImage.createGraphics();
+        g2d.setColor(Color.WHITE); // Arka plan rengini beyaz yap (varsa siyah alanlardan kaçınmak için)
+        g2d.fillRect(0, 0, targetWidth, targetHeight);
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
+
+        return resizedImage;
     }
 }
 

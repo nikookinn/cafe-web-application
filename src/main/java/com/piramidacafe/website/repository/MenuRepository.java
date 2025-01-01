@@ -17,4 +17,5 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     Page<Menu> findAllByIsActiveIsTrue(Pageable pageable);
 
     Optional<Menu> findByMenuIdAndIsActiveIsTrue(int id);
+    Optional<Menu> findByNameAndIsActiveIsTrue(String name);
 }

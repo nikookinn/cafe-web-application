@@ -3,16 +3,13 @@ package com.piramidacafe.website.controller;
 import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.ItemDto;
 import com.piramidacafe.website.dto.ItemUpdateDto;
-import com.piramidacafe.website.dto.MenuDto;
 import com.piramidacafe.website.dto.SimpleCategoryDto;
-import com.piramidacafe.website.exeption.ItemNotFoundException;
-import com.piramidacafe.website.exeption.MenuNotFoundException;
 import com.piramidacafe.website.mapper.ItemMapper;
 import com.piramidacafe.website.model.Category;
 import com.piramidacafe.website.model.Item;
 import com.piramidacafe.website.model.Menu;
 import com.piramidacafe.website.service.CategoryService;
-import com.piramidacafe.website.service.FileStorageService;
+import com.piramidacafe.website.service.serviceImpl.FileStorageService;
 import com.piramidacafe.website.service.ItemService;
 import com.piramidacafe.website.service.MenuService;
 import jakarta.validation.Valid;
@@ -22,11 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/dashboard/item")
-public class ItemController {
+public class ItemDashboardController {
 
     private final ItemService itemService;
     private final MenuService menuService;
@@ -34,7 +30,7 @@ public class ItemController {
     private final FileStorageService fileStorageService;
     private final ItemMapper itemMapper;
 
-    public ItemController(ItemService itemService, MenuService menuService, CategoryService categoryService, FileStorageService fileStorageService, ItemMapper itemMapper) {
+    public ItemDashboardController(ItemService itemService, MenuService menuService, CategoryService categoryService, FileStorageService fileStorageService, ItemMapper itemMapper) {
         this.itemService = itemService;
         this.menuService = menuService;
         this.categoryService = categoryService;
@@ -103,25 +99,25 @@ public class ItemController {
         {
             item.setImageUrl(imageUrl);
         }else {
-            item.setImageUrl(null);
+            item.setImageUrl(item.getImageUrl());
         }
-
         itemService.updateItem(item);
-
         return "redirect:/admin/dashboard/item";
     }
 
-
-
-
-
-
+    @GetMapping("/delete/{id}")
+    public String deleteItem(@PathVariable("id") int id){
+        Item item = itemService.findActiveItemById(id);
+        fileStorageService.deleteOldImage(item.getImageUrl(),ImageDirectory.ITEM_IMAGES.getDirectory());
+        item.setActive(false);
+        itemService.save(item);
+        return "redirect:/admin/dashboard/item";
+    }
     @GetMapping("/categories")
     @ResponseBody
     public List<SimpleCategoryDto> getCategoriesByMenu(@RequestParam Long menuId) {
-        List<SimpleCategoryDto> dto = categoryService.getCategoriesByMenuId(menuId);
-        dto.forEach(System.out::println);
-        return dto;
+        System.out.println(menuId);
+        return categoryService.getCategoriesByMenuId(menuId);
     }
 
 

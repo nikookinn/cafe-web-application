@@ -1,14 +1,12 @@
 package com.piramidacafe.website.service;
 
-import com.piramidacafe.website.dto.ItemDto;
 import com.piramidacafe.website.dto.ItemUpdateDto;
+import com.piramidacafe.website.dto.SimpleItemDto;
 import com.piramidacafe.website.dto.SimpleMenuDto;
 import com.piramidacafe.website.model.Item;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface ItemService {
@@ -19,6 +17,8 @@ public interface ItemService {
     Item findActiveItemById(int id);
 
     List<Item> getActiveItemsByCategory(String catName);
+    List<SimpleItemDto> getAllActiveItemsByCategoryName(String catName);
+    List<SimpleItemDto> getAllActiveItemsByCategoryId(int id);
 
     void updateItem(Item item);
 

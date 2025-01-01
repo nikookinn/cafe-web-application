@@ -1,12 +1,14 @@
-package com.piramidacafe.website.service;
+package com.piramidacafe.website.service.serviceImpl;
 
 import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.CategoryDto;
 import com.piramidacafe.website.model.Category;
+import com.piramidacafe.website.service.CategoryFileService;
+import com.piramidacafe.website.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryFileServiceImpl implements CategoryFileService{
+public class CategoryFileServiceImpl implements CategoryFileService {
 
     private final FileStorageService fileStorageService;
     private final CategoryService categoryService;

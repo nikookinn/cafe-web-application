@@ -1,9 +1,7 @@
 package com.piramidacafe.website.mapper;
 
 import com.piramidacafe.website.dto.CategoryDto;
-import com.piramidacafe.website.dto.MenuDto;
 import com.piramidacafe.website.model.Category;
-import com.piramidacafe.website.model.Menu;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -4,7 +4,8 @@ public enum ImageDirectory {
     APP_IMAGES("app_images"),
     MENU_IMAGES("menu_images"),
     CATEGORY_IMAGES("category_images"),
-    ITEM_IMAGES("item_images");
+    ITEM_IMAGES("item_images"),
+    CAMPAIGN_IMAGES("campaign_images");
 
     private final String directory;
 

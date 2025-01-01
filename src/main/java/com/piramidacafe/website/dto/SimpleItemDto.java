@@ -2,23 +2,19 @@ package com.piramidacafe.website.dto;
 
 import java.math.BigDecimal;
 
-public class SimpleMenuDto {
+public class SimpleItemDto {
     private Long itemId;
     private String name;
     private BigDecimal price;
     private String description;
     private String imageUrl;
-    private String menuName;
-    private String categoryName;
 
-    public SimpleMenuDto(Long itemId, String name, BigDecimal price, String description, String imageUrl, String menuName, String categoryName) {
+    public SimpleItemDto(Long itemId, String name, BigDecimal price, String description, String imageUrl) {
         this.itemId = itemId;
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
-        this.menuName = menuName;
-        this.categoryName = categoryName;
     }
 
     public Long getItemId() {
@@ -61,19 +57,14 @@ public class SimpleMenuDto {
         this.imageUrl = imageUrl;
     }
 
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    @Override
+    public String toString() {
+        return "SimpleItemDto{" +
+               "itemId=" + itemId +
+               ", name='" + name + '\'' +
+               ", price=" + price +
+               ", description='" + description + '\'' +
+               ", imageUrl='" + imageUrl + '\'' +
+               '}';
     }
 }

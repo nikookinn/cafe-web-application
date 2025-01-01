@@ -18,4 +18,5 @@ public class AppConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToSimpleCategoryDtoConverter());
     }
+
 }
