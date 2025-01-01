@@ -52,7 +52,7 @@
     function toggleDescription(element) {
         const description = element.querySelector('p');
 
-        if (description.textContent.length < 100) {
+        if (description.textContent.length < 80) {
             return;
         }
         element.classList.toggle('expanded');
@@ -165,7 +165,7 @@
             const readMoreText = container.querySelector('::after');
 
             // If the description is too short, hide "Read more" text
-            if (description && description.textContent.length < 100) {
+            if (description && description.textContent.length < 80) {
                 container.classList.remove('has-more');
             } else {
                 container.classList.add('has-more');
