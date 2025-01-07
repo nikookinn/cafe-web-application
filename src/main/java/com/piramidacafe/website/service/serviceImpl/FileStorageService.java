@@ -45,7 +45,7 @@ public class FileStorageService {
 
             // If it's not "app_image" directory, crop and resize the image
             if (subDirectory.equals("campaign_images")) {
-                originalImage = resizeToAspectRatio(originalImage, 1080, 1920);
+                originalImage = resizeToAspectRatio(originalImage, 1920, 1080);
             } else if (!subDirectory.equals("app_images")) {
                 BufferedImage croppedImage = cropToSquare(originalImage);
                 originalImage = resizeImage(croppedImage, 800);
@@ -60,6 +60,25 @@ public class FileStorageService {
             return "/images/" + subDirectory + "/" + fileName;
         } catch (IOException e) {
             throw new RuntimeException("Could not save file: " + file.getOriginalFilename(), e);
+        }
+    }
+    public String saveIcoFile(MultipartFile file, String subDirectory) {
+        // Create a unique file name for the .ico file
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        Path filePath = Paths.get(uploadDir, subDirectory, fileName);
+
+        try {
+            // Ensure the directory exists
+            Files.createDirectories(filePath.getParent());
+
+            // Save the .ico file directly
+            Files.copy(file.getInputStream(), filePath);
+            logger.info("ICO file successfully stored at: " + filePath);
+
+            // Return the file's URL
+            return "/images/" + subDirectory + "/" + fileName;
+        } catch (IOException e) {
+            throw new RuntimeException("Could not save .ico file: " + file.getOriginalFilename(), e);
         }
     }
 
@@ -115,6 +134,8 @@ public class FileStorageService {
                 fileName = existingImageUrl.replace("/images/menu_images", "");
             } else if (subDirectory.equals("category_images")) {
                 fileName = existingImageUrl.replace("/images/category_images","");
+            }else if (subDirectory.equals("app_icon")) {
+                fileName = existingImageUrl.replace("/images/app_icon","");
             }
 
             String filePath = uploadDir + "/" + subDirectory + "/" + fileName;
@@ -137,7 +158,7 @@ public class FileStorageService {
         BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
 
         Graphics2D g2d = resizedImage.createGraphics();
-        g2d.setColor(Color.WHITE); // Arka plan rengini beyaz yap (varsa siyah alanlardan kaçınmak için)
+        g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, targetWidth, targetHeight);
         g2d.drawImage(scaledImage, 0, 0, null);
         g2d.dispose();

@@ -20,36 +20,42 @@ public class CampaignDashboardController {
     @GetMapping()
     public String showCampaignPage(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(defaultValue = "10") int size,
-                                   Model model){
-        model.addAttribute("campaignPage",campaignService.getAllActiveCampaigns(page, size));
+                                   Model model) {
+        model.addAttribute("campaignPage", campaignService.findAllActiveCampaigns(page, size));
         return "dashboard/campaign-dashboard";
     }
 
     @GetMapping("/add")
-    public String showCampaignAddPage(@ModelAttribute("campaignDto")CampaignDto campaignDto){
+    public String showCampaignAddPage(@ModelAttribute("campaignDto") CampaignDto campaignDto) {
         return "dashboard/add-campaign-dashboard";
     }
+
     @PostMapping("/save")
-    public String saveItem(@Valid @ModelAttribute("campaignDto") CampaignDto campaignDto,BindingResult result) {
+    public String saveItem(@Valid @ModelAttribute("campaignDto") CampaignDto campaignDto, BindingResult result) {
         if (result.hasErrors()) {
             return "dashboard/add-campaign-dashboard";
         }
-        campaignService.mapAndSave(campaignDto);
+        campaignService.saveCampaign(campaignDto);
         return "redirect:/admin/dashboard/campaign";
     }
 
     @GetMapping("/update/{id}")
-    public String showUpdatePage(@PathVariable("id") int id,Model model){
-        model.addAttribute("campaignDto", campaignService.getActiveCampaignDtoById(id));
+    public String showUpdatePage(@PathVariable("id") int id, Model model) {
+        model.addAttribute("campaignDto", campaignService.findActiveCampaignDtoById(id));
         return "dashboard/update-campaign-dashboard";
     }
 
     @PostMapping("/process-update")
-    public String updateMenu(@Valid @ModelAttribute("campaignDto") CampaignDto campaignDto, BindingResult result){
-        if (result.hasErrors()){
+    public String updateMenu(@Valid @ModelAttribute("campaignDto") CampaignDto campaignDto, BindingResult result) {
+        if (result.hasErrors()) {
             return "dashboard/update-campaign-dashboard";
         }
-        campaignService.mapAndUpdate(campaignDto);
+        campaignService.updateCampaign(campaignDto);
+        return "redirect:/admin/dashboard/campaign";
+    }
+    @GetMapping("/delete/{id}")
+    public String deleteItem(@PathVariable("id") int id) {
+        campaignService.markCampaignAsInactive(id);
         return "redirect:/admin/dashboard/campaign";
     }
 }

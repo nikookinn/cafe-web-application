@@ -9,31 +9,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class ItemMapper {
 
-    public Item toEntity(ItemDto itemDto, Category category, String imageUrl){
+    public Item toEntity(ItemDto itemDto, Category category, String imageUrl) {
         Item item = new Item();
         item.setName(itemDto.getName());
         item.setPrice(itemDto.getPrice());
         item.setDescription(itemDto.getDescription());
         item.setCategory(category);
 
-        if (itemDto.getItemImage() !=null && !itemDto.getItemImage().isEmpty()){
+        if (itemDto.getItemImage() != null && !itemDto.getItemImage().isEmpty()) {
             item.setImageUrl(imageUrl);
-        }else {
+        } else {
             item.setImageUrl(null);
         }
         return item;
     }
-    public Item toEntity(ItemUpdateDto updateDto, String imageUrl){
-        Item item = new Item();
+
+    public Item toEntity(ItemUpdateDto updateDto, Item item, String imageUrl) {
         item.setItemId(updateDto.getItemId());
         item.setName(updateDto.getName());
         item.setPrice(updateDto.getPrice());
         item.setDescription(updateDto.getDescription());
         item.setCategory(updateDto.getCategory());
-        if (updateDto.getItemImage() !=null && !updateDto.getItemImage().isEmpty()){
+        if (updateDto.getItemImage() != null && !updateDto.getItemImage().isEmpty()) {
             item.setImageUrl(imageUrl);
-        }else {
-            item.setImageUrl(null);
+        } else {
+            item.setImageUrl(item.getImageUrl());
         }
         return item;
     }

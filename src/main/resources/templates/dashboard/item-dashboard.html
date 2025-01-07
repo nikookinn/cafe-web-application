@@ -15,7 +15,7 @@
 <div th:replace="~{dashboard/dashboard-header :: navbar}"></div>
 <div class="container">
     <div class="header-section d-flex justify-content-between align-items-center flex-wrap gap-3">
-        <h1 class="page-title m-0">Menu Categories</h1>
+        <h1 class="page-title m-0">Items</h1>
         <a th:href="@{/admin/dashboard/item/add}" class="btn btn-primary">
             <i class="bi bi-plus-lg"></i>
             <span>Add Item</span>
@@ -101,57 +101,45 @@
 </div>
 
 <script>
-    // Get table, headers, and rows
     const table = document.querySelector('.table');
     const headers = table.querySelectorAll('th');
     const rows = table.querySelectorAll('tbody tr');
 
-    // Initially set the sorting direction to ascending for the first column
     headers.forEach((header, index) => {
-        // Add the sort icon if it's not already present
         const icon = header.querySelector('.sort-icon');
         if (!icon) {
             const newIcon = document.createElement('span');
-            newIcon.classList.add('sort-icon', 'bi', 'bi-caret-up-fill'); // Default to ascending
+            newIcon.classList.add('sort-icon', 'bi', 'bi-caret-up-fill');
             header.appendChild(newIcon);
         }
 
-        // Add the click event to each header
         header.addEventListener('click', () => {
-            // Check if the column is already sorted ascending or descending
             const isAsc = header.classList.contains('asc');
 
-            // Remove 'asc' and 'desc' classes from all headers
             headers.forEach(h => h.classList.remove('asc', 'desc'));
 
-            // Toggle the sorting direction (ascending or descending)
             header.classList.add(isAsc ? 'desc' : 'asc');
 
-            // Call the sort function with the updated direction
             sortTable(index, !isAsc);
 
-            // Toggle the icons for sorting direction (up or down)
             const icons = header.querySelectorAll('.sort-icon');
             icons.forEach(icon => {
-                icon.classList.toggle('bi-caret-up-fill', !isAsc); // Up arrow for ascending
-                icon.classList.toggle('bi-caret-down-fill', isAsc); // Down arrow for descending
+                icon.classList.toggle('bi-caret-up-fill', !isAsc);
+                icon.classList.toggle('bi-caret-down-fill', isAsc);
             });
         });
     });
 
-    // Sort function
+
     function sortTable(index, ascending) {
         const rowsArray = Array.from(rows);
         rowsArray.sort((rowA, rowB) => {
             const cellA = rowA.children[index].innerText.trim();
             const cellB = rowB.children[index].innerText.trim();
-
-            // Handle text or numeric sorting
             const isNumeric = !isNaN(cellA) && !isNaN(cellB);
             const valueA = isNumeric ? parseFloat(cellA) : cellA.toLowerCase();
             const valueB = isNumeric ? parseFloat(cellB) : cellB.toLowerCase();
 
-            // Compare values based on sorting direction
             if (ascending) {
                 if (valueA < valueB) return -1;
                 if (valueA > valueB) return 1;
@@ -163,7 +151,6 @@
             }
         });
 
-        // Reorder rows after sorting
         rowsArray.forEach(row => table.querySelector('tbody').appendChild(row));
     }
 
@@ -195,3 +182,4 @@
 </script>
 </body>
 </html>
+

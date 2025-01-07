@@ -29,4 +29,14 @@ public class CategoryMapper {
         dto.setImageUrl(category.getImageUrl());
         return dto;
     }
+
+    public Category mapExistingCatToCategory(Category category, CategoryDto dto,String url) {
+        category.setCategoryId(dto.getCategoryId());
+        category.setName(dto.getName());
+        category.setMenu(dto.getMenu());
+        if (url !=null){
+            category.setImageUrl(url);
+        }
+        return category;
+    }
 }

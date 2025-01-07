@@ -1,6 +1,8 @@
 package com.piramidacafe.website.controller;
 
+import com.piramidacafe.website.dto.CampaignDto;
 import com.piramidacafe.website.service.CampaignService;
+import com.piramidacafe.website.service.ContactInformationService;
 import com.piramidacafe.website.service.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,12 @@ public class MainController {
 
     private final MenuService menuService;
     private final CampaignService campaignService;
+    private final ContactInformationService informationService;
 
-    public MainController(MenuService menuService, CampaignService campaignService) {
+    public MainController(MenuService menuService, CampaignService campaignService, ContactInformationService informationService) {
         this.menuService = menuService;
         this.campaignService = campaignService;
+        this.informationService = informationService;
     }
 
     @GetMapping
@@ -25,11 +29,20 @@ public class MainController {
         model.addAttribute("campaigns",campaignService.findTop5ByIsActiveTrueOrderByCreatedDateDesc());
         return "main/home-page";
     }
-    @GetMapping("main-menu")
+    @GetMapping("/main-menu")
     public String showMenuPage(Model model){
         model.addAttribute("menus",menuService.getActiveMenus());
         return "main/menu-page";
     }
-
+    @GetMapping("/campaign-and-event")
+    public String showCampaignAndEventPage(Model model){
+        model.addAttribute("campaigns",campaignService.findAllActiveCampaigns());
+        return "main/campaign-event-page";
+    }
+    @GetMapping("/about")
+    public String showAboutPage(Model model){
+        model.addAttribute("cafeInfo",informationService.findContactInfo());
+        return "main/about-page";
+    }
 
 }

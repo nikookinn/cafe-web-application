@@ -21,7 +21,17 @@ public class MenuMapper {
         if (menuDto.getMenuImage() !=null && !menuDto.getMenuImage().isEmpty()){
             entity.setImageUrl(imageUrl);
         }else {
-            entity.setImageUrl(null);
+            entity.setImageUrl(entity.getImageUrl());
+        }
+        return entity;
+    }
+    public Menu toEntity(MenuDto menuDto,Menu entity, String imageUrl){
+        entity.setMenuId(menuDto.getMenuId());
+        entity.setName(menuDto.getName());
+        if (menuDto.getMenuImage() !=null && !menuDto.getMenuImage().isEmpty()){
+            entity.setImageUrl(imageUrl);
+        }else {
+            entity.setImageUrl(entity.getImageUrl());
         }
         return entity;
     }

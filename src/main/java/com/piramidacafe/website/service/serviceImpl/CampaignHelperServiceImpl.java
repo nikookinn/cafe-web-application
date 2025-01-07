@@ -15,16 +15,22 @@ public class CampaignHelperServiceImpl implements CampaignHelperService {
 
     @Override
     public void deleteOldImage(CampaignDto dto) {
-        if (dto.getCampaignImage() !=null && !dto.getCampaignImage().isEmpty()){
+        if (dto.getCampaignImage() != null && !dto.getCampaignImage().isEmpty()) {
             storageService.deleteOldImage(dto.getImageUrl(), ImageDirectory.CATEGORY_IMAGES.getDirectory());
         }
     }
 
     @Override
     public String saveAndGetPathOfImage(CampaignDto dto) {
-        if (dto.getCampaignImage() !=null && !dto.getCampaignImage().isEmpty()){
+        if (dto.getCampaignImage() != null && !dto.getCampaignImage().isEmpty()) {
             return storageService.storeFile(dto.getCampaignImage(), ImageDirectory.CAMPAIGN_IMAGES.getDirectory());
         }
         return dto.getImageUrl();
+    }
+    @Override
+    public void deleteCategoryImageFromStorage(String path) {
+        if (path != null){
+            storageService.deleteOldImage(path, ImageDirectory.CAMPAIGN_IMAGES.getDirectory());
+        }
     }
 }

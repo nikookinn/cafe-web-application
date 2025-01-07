@@ -5,4 +5,5 @@ import com.piramidacafe.website.dto.CampaignDto;
 public interface CampaignHelperService {
     void deleteOldImage(CampaignDto dto);
     String saveAndGetPathOfImage(CampaignDto dto);
+    void deleteCategoryImageFromStorage(String path);
 }

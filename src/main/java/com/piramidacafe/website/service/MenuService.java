@@ -9,16 +9,17 @@ import java.util.Optional;
 
 
 public interface MenuService {
-    void save(Menu menu);
+    void saveMenu(MenuDto menuDto);
 
-    Optional<Menu> getActiveMenuById(int id);
+    MenuDto getActiveMenuById(int id);
 
     List<Menu> getActiveMenus();
 
-    void updateItem(Menu menu);
-
+    void updateMenu(MenuDto menuDto);
 
     Page<Menu> getAllActiveMenus(int page, int size);
 
     MenuDto getMenuByNameIfIsActive(String menuName);
+    Menu findActiveMenuByMenuId(int id);
+    void markMenuAsInactive(int id);
 }

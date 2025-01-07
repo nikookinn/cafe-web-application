@@ -9,28 +9,38 @@ public class ContactInformationMapper {
 
     public ContactInformationDto toDto(ContactInformation entity) {
         ContactInformationDto dto = new ContactInformationDto();
+        dto.setId(entity.getId());
         dto.setCafeName(entity.getCafeName());
         dto.setAbout(entity.getAbout());
         dto.setPhoneNumber(entity.getPhoneNumber());
         dto.setAddress(entity.getAddress());
         dto.setWorkingHours(entity.getWorkingHours());
         dto.setExistingImageUrl(entity.getWebsiteImageUrl());
+        dto.setEmail(entity.getEmail());
+        dto.setInstagramUrl(entity.getInstagramUrl());
+        dto.setFacebookUrl(entity.getFacebookUrl());
+        dto.setTwitterUrl(entity.getTwitterUrl());
+        dto.setWebsiteIcon(entity.getWebsiteIcon());
         return dto;
     }
 
-    public ContactInformation toEntity(ContactInformationDto dto, String imageUrl) {
-        ContactInformation entity = new ContactInformation();
-        entity.setCafeName(dto.getCafeName());
-        entity.setAbout(dto.getAbout());
-        entity.setPhoneNumber(dto.getPhoneNumber());
-        entity.setAddress(dto.getAddress());
-        entity.setWorkingHours(dto.getWorkingHours());
-
+    public ContactInformation toEntity(ContactInformationDto dto, ContactInformation ci, String imageUrl,String iconUrl) {
+        ci.setId(dto.getId());
+        ci.setCafeName(dto.getCafeName());
+        ci.setAbout(dto.getAbout());
+        ci.setPhoneNumber(dto.getPhoneNumber());
+        ci.setAddress(dto.getAddress());
+        ci.setWorkingHours(dto.getWorkingHours());
+        ci.setEmail(dto.getEmail());
+        ci.setInstagramUrl(dto.getInstagramUrl());
+        ci.setFacebookUrl(dto.getFacebookUrl());
+        ci.setTwitterUrl(dto.getTwitterUrl());
         if (dto.getWebsiteImage() != null && !dto.getWebsiteImage().isEmpty()) {
-            entity.setWebsiteImageUrl(imageUrl);
-        } else {
-            entity.setWebsiteImageUrl(null);
+            ci.setWebsiteImageUrl(imageUrl);
         }
-        return entity;
+        if (dto.getWebsiteIconFile() != null && !dto.getWebsiteIconFile().isEmpty()) {
+            ci.setWebsiteIcon(iconUrl);
+        }
+        return ci;
     }
 }

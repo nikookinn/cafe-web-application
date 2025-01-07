@@ -30,7 +30,7 @@ public class ProductController {
     public String getProductPage(@PathVariable String menuName, Model model) {
         try {
             String menu = menuName.replace("-", " ").toLowerCase();
-            List<SimpleCategoryDto> categories = categoryService.getAllActiveCategoriesByMenuName(menu);
+            List<SimpleCategoryDto> categories = categoryService.findAllActiveCategoriesByMenuName(menu);
             model.addAttribute("categories", categories);
             model.addAttribute("menuDto", menuService.getMenuByNameIfIsActive(menu));
 

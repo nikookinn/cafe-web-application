@@ -1,9 +1,12 @@
 package com.piramidacafe.website.service.serviceImpl;
 
+import com.piramidacafe.website.dto.CategoryDto;
 import com.piramidacafe.website.dto.SimpleCategoryDto;
 import com.piramidacafe.website.exception.CategoryNotFoundException;
+import com.piramidacafe.website.mapper.CategoryMapper;
 import com.piramidacafe.website.model.Category;
 import com.piramidacafe.website.repository.CategoryRepository;
+import com.piramidacafe.website.service.CategoryHelperService;
 import com.piramidacafe.website.service.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,54 +19,66 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-
     private final CategoryRepository categoryRepository;
+    private final CategoryHelperService helperService;
+    private final CategoryMapper categoryMapper;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryHelperService helperService, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
+        this.helperService = helperService;
+        this.categoryMapper = categoryMapper;
     }
 
     @Override
-    public void save(Category category) {
+    public void saveCategory(CategoryDto dto) {
+        String imageUrl = helperService.saveAndGetPathOfImage(dto);
+        Category category = categoryMapper.toEntity(dto, imageUrl);
         categoryRepository.save(category);
     }
 
     @Override
-    public Optional<Category> getActiveCategoryById(int id) {
-        return categoryRepository.findByCategoryIdAndIsActiveIsTrue(id);
-    }
-
-    @Override
-    public List<Category> getActiveCategoriesByMenuId(String menuId) {
-        return null;
-    }
-
-    @Override
-    public void updateItem(Category category) {
+    public void updateCategory(CategoryDto dto) {
+        Category category = findActiveCategoryById(dto.getCategoryId());
+        helperService.deleteOldImage(dto);
+        String url = helperService.saveAndGetPathOfImage(dto);
+        category = categoryMapper.mapExistingCatToCategory(category, dto, url);
         categoryRepository.save(category);
     }
 
     @Override
-    public Page<Category> getAllActiveCategories(int page, int size) {
+    public void markCategoryAsInactive(int id) {
+        Category category = findActiveCategoryById((long) id);
+        helperService.deleteCategoryImageFromStorage(category.getImageUrl());
+        category.setActive(false);
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public Page<Category> findAllActiveCategories(int page, int size) {
         return categoryRepository.findAllByIsActiveIsTrue(PageRequest.of(page, size));
     }
 
     @Override
-    public Category getCategoryByIdFromDB(Long id) {
-        Optional<Category> existingCategory = getActiveCategoryById(id.intValue());
-        if (existingCategory.isEmpty()){
+    public Category findActiveCategoryById(Long id) {
+        Optional<Category> existingCategory = categoryRepository.findByCategoryIdAndIsActiveIsTrue(id.intValue());
+        if (existingCategory.isEmpty()) {
             throw new CategoryNotFoundException("Category with ID " + id + " not found");
         }
         return existingCategory.get();
     }
 
     @Override
-    public List<SimpleCategoryDto> getCategoriesByMenuId(Long menuId) {
+    public CategoryDto findExistingCategoryById(Long id) {
+        return categoryMapper.toDto(findActiveCategoryById(id));
+    }
+
+    @Override
+    public List<SimpleCategoryDto> findCategoriesByMenuId(Long menuId) {
         return categoryRepository.findCategoriesByMenuIdAndIsActiveTrue(menuId);
     }
 
     @Override
-    public List<SimpleCategoryDto> getAllActiveCategoriesByMenuName(String name) {
+    public List<SimpleCategoryDto> findAllActiveCategoriesByMenuName(String name) {
         List<Category> categories = categoryRepository.getAllActiveCategoriesByMenuName(name);
         return categories.stream()
                 .map(category -> new SimpleCategoryDto(category.getCategoryId(), category.getName()))

@@ -21,6 +21,11 @@ public class ContactInformation {
     private String workingHours;
 
     private String websiteImageUrl;
+    private String email;
+    private String instagramUrl;
+    private String facebookUrl;
+    private String twitterUrl;
+    private String websiteIcon;
 
     public Long getId() {
         return id;
@@ -76,6 +81,46 @@ public class ContactInformation {
 
     public void setWebsiteImageUrl(String websiteImageUrl) {
         this.websiteImageUrl = websiteImageUrl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getInstagramUrl() {
+        return instagramUrl;
+    }
+
+    public void setInstagramUrl(String instagramUrl) {
+        this.instagramUrl = instagramUrl;
+    }
+
+    public String getFacebookUrl() {
+        return facebookUrl;
+    }
+
+    public void setFacebookUrl(String facebookUrl) {
+        this.facebookUrl = facebookUrl;
+    }
+
+    public String getTwitterUrl() {
+        return twitterUrl;
+    }
+
+    public void setTwitterUrl(String twitterUrl) {
+        this.twitterUrl = twitterUrl;
+    }
+
+    public String getWebsiteIcon() {
+        return websiteIcon;
+    }
+
+    public void setWebsiteIcon(String websiteIcon) {
+        this.websiteIcon = websiteIcon;
     }
 
     @Override

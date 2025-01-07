@@ -1,13 +1,7 @@
 package com.piramidacafe.website.controller;
 
-import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.ContactInformationDto;
-import com.piramidacafe.website.mapper.ContactInformationMapper;
-import com.piramidacafe.website.model.ContactInformation;
 import com.piramidacafe.website.service.ContactInformationService;
-import com.piramidacafe.website.service.serviceImpl.FileStorageService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,69 +9,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.Optional;
-
 @Controller
 @RequestMapping("admin/dashboard")
 public class ContactDashboardController {
-
-    Logger logger = LoggerFactory.getLogger(ContactInformation.class);
-
-
-    private final FileStorageService fileStorageService;
-    private final ContactInformationMapper contactInformationMapper;
     private final ContactInformationService contactInformationService;
 
-    public ContactDashboardController(FileStorageService fileStorageService, ContactInformationMapper contactInformationMapper, ContactInformationService contactInformationService) {
-        this.fileStorageService = fileStorageService;
-        this.contactInformationMapper = contactInformationMapper;
+    public ContactDashboardController(ContactInformationService contactInformationService) {
         this.contactInformationService = contactInformationService;
     }
 
     @GetMapping()
     public String showDashboardInfoPage(Model model){
-        List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
-        Optional<ContactInformation> information = Optional.of(contactInfos.stream().findFirst().orElse(new ContactInformation()));
-        logger.info(information.get().toString());
-        ContactInformationDto contactInformationDto = contactInformationMapper.toDto(information.get());
-        model.addAttribute("contactInformationDto", contactInformationDto);
+        model.addAttribute("contactInformationDto", contactInformationService.findContactInfo());
         return "dashboard/info-dashboard";
     }
 
     @GetMapping("/contact-information")
     public String showContactInformationForm(Model model) {
-        List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
-        Optional<ContactInformation> information = Optional.of(contactInfos.stream().findFirst().orElse(new ContactInformation()));
-        ContactInformationDto dto = contactInformationMapper.toDto(information.get());
-
-        dto.setExistingImageUrl(information.get().getWebsiteImageUrl());
-
-        model.addAttribute("contactInformationDto", dto);
+        model.addAttribute("contactInformationDto", contactInformationService.findContactInfo());
         return "dashboard/add-info-dashboard";
     }
 
     @PostMapping("/contact-information/save")
     public String saveContactInformation(@ModelAttribute("contactInformationDto") ContactInformationDto dto) {
-        List<ContactInformation> contactInfos = contactInformationService.getContactInformation();
-        Optional<ContactInformation> eci = Optional.of(contactInfos.stream().findFirst().orElse(new ContactInformation()));
-        String imageUrl = null;
-        if (eci.get().getId() !=null){
-
-            if (dto.getWebsiteImage() != null && !dto.getWebsiteImage().isEmpty()) {
-                fileStorageService.deleteOldImage(eci.get().getWebsiteImageUrl(), ImageDirectory.APP_IMAGES.getDirectory());
-                imageUrl = fileStorageService.storeFile(dto.getWebsiteImage(), ImageDirectory.APP_IMAGES.getDirectory());
-            }else {
-                imageUrl = eci.get().getWebsiteImageUrl();
-            }
-            eci.get().setWebsiteImageUrl(imageUrl);
-            contactInformationService.saveContactInformation(eci.get());
-        }else {
-            imageUrl = fileStorageService.storeFile(dto.getWebsiteImage(),ImageDirectory.APP_IMAGES.getDirectory());
-            contactInformationService.saveContactInformation(contactInformationMapper.toEntity(dto, imageUrl));
-        }
-
-
+        contactInformationService.saveContactInformation(dto);
         return "redirect:/admin/dashboard";
     }
 }

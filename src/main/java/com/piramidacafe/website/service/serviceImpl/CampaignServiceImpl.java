@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CampaignServiceImpl implements CampaignService {
@@ -28,52 +29,66 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public void mapAndUpdate(CampaignDto campaignDto) {
+    public void saveCampaign(CampaignDto campaignDto) {
+        String path = helperService.saveAndGetPathOfImage(campaignDto);
+        Campaign campaign = mapper.toEntity(campaignDto, path);
+        save(campaign);
+    }
+
+    @Override
+    public void updateCampaign(CampaignDto campaignDto) {
         helperService.deleteOldImage(campaignDto);
         String path = helperService.saveAndGetPathOfImage(campaignDto);
-        Campaign campaign = getActiveCampaignById(campaignDto.getCampaignId().intValue());
+        Campaign campaign = findActiveCampaignById(campaignDto.getCampaignId().intValue());
         campaign.setName(campaignDto.getName());
-        if (campaignDto.getCampaignImage() !=null && !campaignDto.getCampaignImage().isEmpty()){
+        if (campaignDto.getCampaignImage() != null && !campaignDto.getCampaignImage().isEmpty()) {
             campaign.setImageUrl(path);
         }
         update(campaign);
     }
 
-
     @Override
-    public void mapAndSave(CampaignDto campaignDto) {
-        String path = helperService.saveAndGetPathOfImage(campaignDto);
-        Campaign campaign = mapper.toEntity(campaignDto,path);
-        save(campaign);
-    }
-
-    @Override
-    public CampaignDto getActiveCampaignDtoById(int id) {
-        Campaign campaign = repository.findCampaignByCampaignIdAndIsActiveIsTrue(id).orElseThrow(()->new CampaignNotFoundException("Campaign with " + id + " is not found"));
+    public CampaignDto findActiveCampaignDtoById(int id) {
+        Campaign campaign = repository.findCampaignByCampaignIdAndIsActiveIsTrue(id).orElseThrow(() -> new CampaignNotFoundException("Campaign with " + id + " is not found"));
         return mapper.toDto(campaign);
     }
 
     @Override
-    public Campaign getActiveCampaignById(int id) {
-        return repository.findCampaignByCampaignIdAndIsActiveIsTrue(id).orElseThrow(()->new CampaignNotFoundException("Campaign with " + id + " is not found"));
+    public Campaign findActiveCampaignById(int id) {
+        return repository.findCampaignByCampaignIdAndIsActiveIsTrue(id).orElseThrow(() -> new CampaignNotFoundException("Campaign with " + id + " is not found"));
     }
 
     @Override
-    public List<Campaign>  findTop5ByIsActiveTrueOrderByCreatedDateDesc() {
+    public List<Campaign> findTop5ByIsActiveTrueOrderByCreatedDateDesc() {
         Pageable pageable = PageRequest.of(0, 5);
         return repository.findTop5ByIsActiveTrueOrderByCreatedDateDesc(pageable);
     }
+
+    @Override
+    public Page<Campaign> findAllActiveCampaigns(int page, int size) {
+        return repository.findAllByIsActiveIsTrue(PageRequest.of(page, size));
+    }
+
+    @Override
+    public List<CampaignDto> findAllActiveCampaigns() {
+        List<Campaign> campaignList = repository.findAllByIsActiveIsTrue();
+        return campaignList.stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
     @Override
     public void save(Campaign campaign) {
+        repository.save(campaign);
+    }
+
+    @Override
+    public void markCampaignAsInactive(int id) {
+        Campaign campaign = findActiveCampaignById(id);
+        helperService.deleteCategoryImageFromStorage(campaign.getImageUrl());
+        campaign.setActive(false);
         repository.save(campaign);
     }
     @Override
     public void update(Campaign campaign) {
         repository.save(campaign);
-    }
-
-    @Override
-    public Page<Campaign> getAllActiveCampaigns(int page, int size) {
-        return repository.findAllByIsActiveIsTrue(PageRequest.of(page, size));
     }
 }

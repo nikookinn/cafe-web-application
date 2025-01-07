@@ -11,7 +11,7 @@
 <!-- Navbar code -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">Piramida Cafe & Lounge</a>
+            <a class="navbar-brand" th:href="@{/}" th:text="${info.cafeName}"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,10 +21,10 @@
                         <a class="nav-link" th:href="@{/main-menu}">MENYU</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">KAMPANIYALAR</a>
+                        <a class="nav-link" th:href="@{/campaign-and-event}">KAMPANIYALAR VƏ TƏDBİRLƏR</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">HAQQIMIZDA</a>
+                        <a class="nav-link"  th:href="@{/about}">HAQQIMIZDA</a>
                     </li>
                 </ul>
             </div>

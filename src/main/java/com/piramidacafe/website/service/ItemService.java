@@ -1,5 +1,6 @@
 package com.piramidacafe.website.service;
 
+import com.piramidacafe.website.dto.ItemDto;
 import com.piramidacafe.website.dto.ItemUpdateDto;
 import com.piramidacafe.website.dto.SimpleItemDto;
 import com.piramidacafe.website.dto.SimpleMenuDto;
@@ -11,16 +12,15 @@ import java.util.List;
 
 public interface ItemService {
 
-    void save(Item item);
+    void saveItem(ItemDto itemDto);
 
     ItemUpdateDto getActiveItemById(int id);
+
     Item findActiveItemById(int id);
 
-    List<Item> getActiveItemsByCategory(String catName);
-    List<SimpleItemDto> getAllActiveItemsByCategoryName(String catName);
     List<SimpleItemDto> getAllActiveItemsByCategoryId(int id);
 
-    void updateItem(Item item);
+    void updateItem(ItemUpdateDto updateDto);
 
     void markItemAsInactive(int id);
 
