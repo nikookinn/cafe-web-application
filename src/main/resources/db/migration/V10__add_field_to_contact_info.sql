@@ -1,4 +1,4 @@
-ALTER TABLE Contact_information
+ALTER TABLE contact_information
     ADD COLUMN email VARCHAR(255),
     ADD COLUMN instagram_url VARCHAR(255),
     ADD COLUMN facebook_url VARCHAR(255),
