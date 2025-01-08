@@ -24,30 +24,45 @@ public class ContactInformationServiceImpl implements ContactInformationService 
         this.fileStorageService = fileStorageService;
     }
 
+    // this method is for saving and updating the contact information,
+    // when there is no record on database we are creating new ContactInformation object
+    // otherwise we will find the only record on database and update
     @Override
     public void saveContactInformation(ContactInformationDto dto) {
-        ContactInformation ci = findById(dto.getId());
+        ContactInformation ci = null;
+        if (dto.getId() != null) {
+            ci = contactInformationRepository.findById(dto.getId()).orElse(null);
+        }
+        if (ci == null) {
+            ci = new ContactInformation();
+        }
+
         String imageUrl = ci.getWebsiteImageUrl();
         String iconUrl = ci.getWebsiteIcon();
+
         if (dto.getWebsiteImage() != null && !dto.getWebsiteImage().isEmpty()) {
-            fileStorageService.deleteOldImage(imageUrl, ImageDirectory.APP_IMAGES.getDirectory());
+            if (imageUrl != null) {
+                fileStorageService.deleteOldImage(imageUrl, ImageDirectory.APP_IMAGES.getDirectory());
+            }
             imageUrl = fileStorageService.storeFile(dto.getWebsiteImage(), ImageDirectory.APP_IMAGES.getDirectory());
         }
-        if (dto.getWebsiteIconFile() != null && !dto.getWebsiteIconFile().isEmpty()){
-            fileStorageService.deleteOldImage(iconUrl, ImageDirectory.APP_ICON.getDirectory());
+
+        if (dto.getWebsiteIconFile() != null && !dto.getWebsiteIconFile().isEmpty()) {
+            if (iconUrl != null) {
+                fileStorageService.deleteOldImage(iconUrl, ImageDirectory.APP_ICON.getDirectory());
+            }
             iconUrl = fileStorageService.saveIcoFile(dto.getWebsiteIconFile(), ImageDirectory.APP_ICON.getDirectory());
         }
-        contactInformationRepository.save(mapper.toEntity(dto, ci, imageUrl,iconUrl));
+        contactInformationRepository.save(mapper.toEntity(dto, ci, imageUrl, iconUrl));
     }
+
 
     @Override
     public ContactInformationDto findContactInfo() {
         ContactInformation ci = contactInformationRepository.findFirstRecord();
+        if (ci ==null){
+            return new ContactInformationDto();
+        }
         return mapper.toDto(ci);
-    }
-
-    @Override
-    public ContactInformation findById(Long id) {
-        return contactInformationRepository.findById(id).orElseThrow(()->new ContactInfoNotFoundException("There is no contact info with id "+id));
     }
 }

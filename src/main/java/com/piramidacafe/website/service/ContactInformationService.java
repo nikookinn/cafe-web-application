@@ -9,5 +9,4 @@ public interface ContactInformationService {
 
     void saveContactInformation(ContactInformationDto dto);
     ContactInformationDto findContactInfo();
-    ContactInformation findById(Long id);
 }

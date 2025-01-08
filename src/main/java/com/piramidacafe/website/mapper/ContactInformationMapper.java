@@ -25,7 +25,6 @@ public class ContactInformationMapper {
     }
 
     public ContactInformation toEntity(ContactInformationDto dto, ContactInformation ci, String imageUrl,String iconUrl) {
-        ci.setId(dto.getId());
         ci.setCafeName(dto.getCafeName());
         ci.setAbout(dto.getAbout());
         ci.setPhoneNumber(dto.getPhoneNumber());
