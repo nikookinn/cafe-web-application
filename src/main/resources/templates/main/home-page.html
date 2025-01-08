@@ -14,7 +14,6 @@
 <div th:replace="~{main/main-navbar :: main-navbar}"></div>
 <!-- Image Carousel -->
 <div th:if="${#lists.size(campaigns) > 1}">
-    <!-- Eğer birden fazla kampanya varsa carousel göster -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <div th:each="campaign, stat : ${campaigns}"
@@ -35,7 +34,6 @@
 </div>
 
 <div th:if="${#lists.size(campaigns) == 1}">
-    <!-- Eğer yalnızca bir kampanya varsa carousel yerine tek bir resim göster -->
     <div class="single-campaign">
         <img th:src="${campaigns[0].imageUrl}" class="d-block w-100" th:alt="${campaigns[0].name}">
     </div>
@@ -47,7 +45,6 @@
 
 <!-- Menu Section -->
 <div class="container my-5">
-    <h2>Menu</h2>
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2">
         <!-- Loop through each menu -->
         <th:block th:each="menu : ${menus}">
