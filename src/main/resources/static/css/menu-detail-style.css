@@ -56,6 +56,42 @@
     z-index: 1;
 }
 
+.description-container p.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 0.25rem;
+}
+
+.description-container.has-more {
+    cursor: pointer;
+}
+
+.description-container.has-more:after {
+    content: "Read more";
+    display: block;
+    color: #60A5FA;
+    font-size: 0.875rem;
+    margin-top: 0.25rem; /* Reduced top margin */
+    line-height: 1; /* Tighter line height */
+}
+
+.description-container.expanded:after {
+    content: "Show less";
+}
+
+.description-container.expanded p {
+    display: block;
+    -webkit-line-clamp: unset;
+}
+
+
+
+.description-container.expanded {
+    transform: translateY(-50%);
+}
 
 .description-container {
     margin: 0;
@@ -65,7 +101,7 @@
     background: rgb(33, 37, 41);
     transition: transform 0.3s ease-in-out;
     padding: 0.75rem 1rem;
-    max-height: 70%; /* Reduced max height */
+    max-height: 70%;
     overflow-y: auto;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -86,41 +122,11 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.description-container.expanded {
-    transform: translateY(-50%);
-}
-
-.line-clamp {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-.description-container::after {
-    margin: 0;
-    padding: 0;
-    content: '↑ Daha çox';
-    display: none;
-    text-align: center;
-    color: #d26400;
-    font-size: 1rem;
-}
-
-.description-container.has-more::after {
-    display: block;
-}
-
-.description-container.expanded::after {
-    content: '↓ Daha az';
-}
-
 .menu-item-name {
     font-size: 0.9rem;
     text-align: left;
     line-height: 1.2;
+    margin-bottom: 0.25rem; /* Added small bottom margin */
 }
 .menu-card img {
     width: 100%;
@@ -131,7 +137,8 @@
 
 .text-sm {
     font-size: 0.7rem;
-    line-height: 1;
+    line-height: 1.2; /* Adjusted line height */
+    margin: 0; /* Remove default margins */
 }
 
 .text-gray-300 {

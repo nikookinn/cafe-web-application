@@ -53,71 +53,49 @@
 <script>
     function toggleDescription(element) {
         const description = element.querySelector('p');
+        const container = element.closest('.menu-card');
 
-        if (description.textContent.length < 55) {
-            return;
-        }
         element.classList.toggle('expanded');
         description.classList.toggle('line-clamp');
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const firstCategoryButton = document.querySelector('.category-btn.active');
-            if (firstCategoryButton) {
-                const categoryId = firstCategoryButton.getAttribute('data-category-id');
-                fetchItemsByCategory(categoryId);
-            }
-        });
     }
-    document.addEventListener('DOMContentLoaded', function () {
-        const firstButton = document.querySelector('#categoryContainer button');
 
-        if (firstButton) {
-            const categoryId = firstButton.getAttribute('data-category-id');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initial setup for categories
+        const firstCategoryButton = document.querySelector('.category-btn.active');
+        if (firstCategoryButton) {
+            const categoryId = firstCategoryButton.getAttribute('data-category-id');
             fetchItemsByCategory(categoryId);
+        }
+
+        // Helper function to check if content is overflowing
+        function isOverflowing(element) {
+            return element.scrollHeight > element.clientHeight;
         }
     });
     function fetchItemsByCategory(categoryId) {
-        // Making the API request with the categoryId
         fetch("/menu/api/items?id=" + categoryId)
-            .then(response => response.json()) // Parse the JSON response
+            .then(response => response.json())
             .then(data => {
-                // Get the menuItems container element
                 const menuItemsContainer = document.getElementById('menuItems');
-
-                // Clear any previous content in the container
                 menuItemsContainer.innerHTML = '';
 
-                // Loop through each item and create HTML for each
                 data.forEach(item => {
                     const menuCard = document.createElement('div');
                     menuCard.classList.add('menu-card', 'bg-gray-900', 'text-white', 'rounded-lg', 'shadow-lg', 'relative', 'overflow-hidden');
-                    menuCard.style.minHeight = '250px'; // Apply inline style for min-height
+                    menuCard.style.minHeight = '250px';
 
-                    // Create description container
                     const descriptionContainer = document.createElement('div');
                     descriptionContainer.classList.add('description-container');
-                    descriptionContainer.setAttribute('onclick', 'toggleDescription(this)');
 
-                    // Add item name
                     const itemName = document.createElement('h4');
                     itemName.classList.add('menu-item-name', 'text-1xl', 'font-bold', 'text-left', 'text-white', '-mt-3');
                     itemName.textContent = item.name;
 
-                    // Add item description
                     const description = document.createElement('p');
                     description.classList.add('text-sm', 'text-gray-300', 'line-clamp');
                     description.textContent = item.description;
 
-                    // Check if the description length exceeds 100 characters
-                    if (item.description.length >= 55) {
-                        descriptionContainer.classList.add('has-more');
-                    }
-
-                    // Append both item name and description to the descriptionContainer
-                    descriptionContainer.appendChild(itemName);
-                    descriptionContainer.appendChild(description);
-
-                    // Add other content to the menu card
+                    // Add basic card structure
                     menuCard.innerHTML = `
                     <div class="relative">
                         <img src="${item.imageUrl}" alt="Menu Item" class="w-full h-40 sm:h-64 object-cover rounded-t-lg">
@@ -126,15 +104,25 @@
                         </span>
                     </div>
                     <div class="p-3 sm:p-4 -m-3">
-                        <!-- Description container with name and description will be appended here -->
                     </div>
                 `;
 
-                    // Append descriptionContainer to menuCard
+                    descriptionContainer.appendChild(itemName);
+                    descriptionContainer.appendChild(description);
                     menuCard.querySelector('.p-3').appendChild(descriptionContainer);
-
-                    // Append the created menuCard to the menuItems container
                     menuItemsContainer.appendChild(menuCard);
+
+                    // After adding to DOM, check if description needs expand/collapse functionality
+                    requestAnimationFrame(() => {
+                        const lineHeight = parseInt(window.getComputedStyle(description).lineHeight);
+                        const maxLines = 2; // You can adjust this number for how many lines to show initially
+                        const maxHeight = lineHeight * maxLines;
+
+                        if (description.scrollHeight > maxHeight) {
+                            descriptionContainer.classList.add('has-more');
+                            descriptionContainer.setAttribute('onclick', 'toggleDescription(this)');
+                        }
+                    });
                 });
             })
             .catch(error => {
@@ -142,35 +130,6 @@
             });
     }
 
-
-    function handleCategoryClick(event) {
-        const categoryId = event.target.getAttribute('data-category-id');
-
-        // Remove 'active' class from all buttons
-        const buttons = document.querySelectorAll('.category-btn');
-        buttons.forEach(button => button.classList.remove('active'));
-
-        // Add 'active' class to the clicked button
-        event.target.classList.add('active');
-
-        // Fetch and display items for the selected category
-        fetchItemsByCategory(categoryId);
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        const descriptionContainers = document.querySelectorAll('.description-container');
-
-        descriptionContainers.forEach(container => {
-            const description = container.querySelector('p');
-            const readMoreText = container.querySelector('::after');
-
-            // If the description is too short, hide "Read more" text
-            if (description && description.textContent.length < 50) {
-                container.classList.remove('has-more');
-            } else {
-                container.classList.add('has-more');
-            }
-        });
-    });
 
 
 
