@@ -130,6 +130,34 @@
             });
     }
 
+    function handleCategoryClick(event) {
+        const categoryId = event.target.getAttribute('data-category-id');
+
+        // Remove 'active' class from all buttons
+        const buttons = document.querySelectorAll('.category-btn');
+        buttons.forEach(button => button.classList.remove('active'));
+
+        // Add 'active' class to the clicked button
+        event.target.classList.add('active');
+
+        // Fetch and display items for the selected category
+        fetchItemsByCategory(categoryId);
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const descriptionContainers = document.querySelectorAll('.description-container');
+
+        descriptionContainers.forEach(container => {
+            const description = container.querySelector('p');
+            const readMoreText = container.querySelector('::after');
+
+            // If the description is too short, hide "Read more" text
+            if (description && description.textContent.length < 50) {
+                container.classList.remove('has-more');
+            } else {
+                container.classList.add('has-more');
+            }
+        });
+    });
 
 
 
