@@ -54,7 +54,7 @@
     function toggleDescription(element) {
         const description = element.querySelector('p');
 
-        if (description.textContent.length < 80) {
+        if (description.textContent.length < 55) {
             return;
         }
         element.classList.toggle('expanded');
@@ -71,11 +71,8 @@
     document.addEventListener('DOMContentLoaded', function () {
         const firstButton = document.querySelector('#categoryContainer button');
 
-        // Eğer bir buton varsa, data-category-id değerini alıyoruz
         if (firstButton) {
             const categoryId = firstButton.getAttribute('data-category-id');
-
-            // Burada, categoryId ile sorgu yapabilirsiniz (örneğin API'ye istek gönderebilirsiniz)
             fetchItemsByCategory(categoryId);
         }
     });
@@ -94,7 +91,7 @@
                 data.forEach(item => {
                     const menuCard = document.createElement('div');
                     menuCard.classList.add('menu-card', 'bg-gray-900', 'text-white', 'rounded-lg', 'shadow-lg', 'relative', 'overflow-hidden');
-                    menuCard.style.minHeight = '250px'; // Apply inline style for min-height
+                    menuCard.style.minHeight = '240px'; // Apply inline style for min-height
 
                     // Create description container
                     const descriptionContainer = document.createElement('div');
@@ -112,7 +109,7 @@
                     description.textContent = item.description;
 
                     // Check if the description length exceeds 100 characters
-                    if (item.description.length >= 80) {
+                    if (item.description.length >= 55) {
                         descriptionContainer.classList.add('has-more');
                     }
 
@@ -167,7 +164,7 @@
             const readMoreText = container.querySelector('::after');
 
             // If the description is too short, hide "Read more" text
-            if (description && description.textContent.length < 80) {
+            if (description && description.textContent.length < 50) {
                 container.classList.remove('has-more');
             } else {
                 container.classList.add('has-more');

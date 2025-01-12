@@ -30,12 +30,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return username -> {
             Optional<User> user = userRepository.findByUsername(username);
             if (user.isEmpty()) {
@@ -55,21 +55,22 @@ public class SecurityConfig {
             );
         };
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-            http
-                 .addFilterBefore(new ServletRequiestWrapperFilter(), SecurityContextHolderAwareRequestFilter.class)
+        http
+                .addFilterBefore(new ServletRequiestWrapperFilter(), SecurityContextHolderAwareRequestFilter.class)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/admin/**").authenticated();
+                    auth.requestMatchers("/logout").authenticated();
                     auth.anyRequest().permitAll();
                 })
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll
+                .formLogin(Customizer.withDefaults()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
-                        .permitAll()
                 );
 
         return http.build();
