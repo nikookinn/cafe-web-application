@@ -31,7 +31,7 @@
 <body>
 <div th:replace="~{dashboard/dashboard-header :: navbar}"></div>
 <div class="container mt-4">
-    <h2>Add Menu</h2>
+    <h2>Update Category</h2>
     <form th:action="@{/admin/dashboard/category/process-update}" th:object="${categoryDto}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{categoryId}" />
         <input type="hidden" th:field="*{imageUrl}" />

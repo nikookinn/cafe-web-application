@@ -63,11 +63,11 @@ public class ItemDashboardController {
     }
 
     @PostMapping("/process-update")
-    public String updateItem(@Valid @ModelAttribute("menuDto") ItemUpdateDto updateDto, BindingResult result, Model model) {
+    public String updateItem(@Valid @ModelAttribute("updateDto") ItemUpdateDto updateDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
             List<Menu> menuList = menuService.getActiveMenus();
             model.addAttribute("menuList", menuList);
-            return "dashboard/update-menu-dashboard";
+            return "dashboard/update-item-dashboard";
         }
         itemService.updateItem(updateDto);
         return "redirect:/admin/dashboard/item";
