@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link th:href="@{/css/menu-detail-style.css}" rel="stylesheet">
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-200">
 <div th:replace="~{main/main-navbar :: main-navbar}"></div>
 <!-- Header Image with Title -->
 <div class="relative h-40 md:h-96 w-full menu-image-container">
@@ -81,7 +81,7 @@
 
                 data.forEach(item => {
                     const menuCard = document.createElement('div');
-                    menuCard.classList.add('menu-card', 'bg-gray-900', 'text-white', 'rounded-lg', 'shadow-lg', 'relative', 'overflow-hidden');
+                    menuCard.classList.add('menu-card', 'bg-gray-900', 'text-white', 'rounded-lg', 'relative', 'overflow-hidden');
                     menuCard.style.minHeight = '250px';
 
                     const descriptionContainer = document.createElement('div');
