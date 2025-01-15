@@ -1,6 +1,5 @@
 package com.piramidacafe.website.controller;
 
-import com.piramidacafe.website.dto.CampaignDto;
 import com.piramidacafe.website.service.CampaignService;
 import com.piramidacafe.website.service.ContactInformationService;
 import com.piramidacafe.website.service.MenuService;

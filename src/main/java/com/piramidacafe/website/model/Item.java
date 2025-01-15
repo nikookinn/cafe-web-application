@@ -2,7 +2,6 @@ package com.piramidacafe.website.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 @Data
 @Entity

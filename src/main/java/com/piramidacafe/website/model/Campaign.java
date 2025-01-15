@@ -3,9 +3,8 @@ package com.piramidacafe.website.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-
-import java.sql.Timestamp;
 import java.time.LocalDate;
+
 @Data
 @Entity
 @Table(name = "campaigns")

@@ -3,10 +3,7 @@ package com.piramidacafe.website.service;
 import com.piramidacafe.website.dto.MenuDto;
 import com.piramidacafe.website.model.Menu;
 import org.springframework.data.domain.Page;
-
 import java.util.List;
-import java.util.Optional;
-
 
 public interface MenuService {
     void saveMenu(MenuDto menuDto);

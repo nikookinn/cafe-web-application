@@ -5,6 +5,7 @@ import com.piramidacafe.website.dto.CategoryDto;
 import com.piramidacafe.website.service.CategoryHelperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 @RequiredArgsConstructor
 @Service
 public class CategoryHelperServiceImpl implements CategoryHelperService {

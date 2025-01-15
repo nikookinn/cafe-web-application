@@ -2,10 +2,8 @@ package com.piramidacafe.website.service.serviceImpl;
 
 import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.ContactInformationDto;
-import com.piramidacafe.website.exception.ContactInfoNotFoundException;
 import com.piramidacafe.website.mapper.ContactInformationMapper;
 import com.piramidacafe.website.model.ContactInformation;
-import com.piramidacafe.website.model.Item;
 import com.piramidacafe.website.repository.ContactInformationRepository;
 import com.piramidacafe.website.service.ContactInformationService;
 import lombok.RequiredArgsConstructor;
