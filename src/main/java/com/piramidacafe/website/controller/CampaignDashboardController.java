@@ -3,19 +3,17 @@ package com.piramidacafe.website.controller;
 import com.piramidacafe.website.dto.CampaignDto;
 import com.piramidacafe.website.service.CampaignService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/dashboard/campaign")
 public class CampaignDashboardController {
-    private final CampaignService campaignService;
 
-    public CampaignDashboardController(CampaignService campaignService) {
-        this.campaignService = campaignService;
-    }
+    private final CampaignService campaignService;
 
     @GetMapping()
     public String showCampaignPage(@RequestParam(defaultValue = "0") int page,

@@ -8,6 +8,7 @@ import com.piramidacafe.website.service.CategoryService;
 import com.piramidacafe.website.service.ItemService;
 import com.piramidacafe.website.service.MenuService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/dashboard/item")
 public class ItemDashboardController {
 
@@ -23,11 +25,6 @@ public class ItemDashboardController {
     private final MenuService menuService;
     private final CategoryService categoryService;
 
-    public ItemDashboardController(ItemService itemService, MenuService menuService, CategoryService categoryService) {
-        this.itemService = itemService;
-        this.menuService = menuService;
-        this.categoryService = categoryService;
-    }
 
     @GetMapping
     public String showItemPage(@RequestParam(defaultValue = "0") int page,

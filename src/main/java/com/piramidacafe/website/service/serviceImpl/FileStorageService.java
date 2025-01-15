@@ -1,5 +1,6 @@
 package com.piramidacafe.website.service.serviceImpl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,11 +16,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+@Slf4j
 @Service
 public class FileStorageService {
 
-    Logger logger = LoggerFactory.getLogger(FileStorageService.class);
 
     @Value("${app.image.upload.dir:/app/images}")
     private String uploadDir;
@@ -73,7 +73,7 @@ public class FileStorageService {
 
             // Save the .ico file directly
             Files.copy(file.getInputStream(), filePath);
-            logger.info("ICO file successfully stored at: " + filePath);
+            log.info("ICO file successfully stored at: " + filePath);
 
             // Return the file's URL
             return "/images/" + subDirectory + "/" + fileName;
@@ -120,7 +120,7 @@ public class FileStorageService {
             ImageIO.write(image, "JPEG", byteArrayOutputStream);
             byte[] imageBytes = byteArrayOutputStream.toByteArray();
             Files.write(path, imageBytes);
-            logger.info("Image successfully stored on path " + path);
+            log.info("Image successfully stored on path " + path);
         }
     }
 
@@ -144,12 +144,12 @@ public class FileStorageService {
             if (file.exists()) {
                 boolean deleted = file.delete();
                 if (!deleted) {
-                    logger.info("Failed to delete old image: " + filePath);
+                    log.info("Failed to delete old image: " + filePath);
                 } else {
-                    logger.info("Image Successfully deleted on path: " + filePath);
+                    log.info("Image Successfully deleted on path: " + filePath);
                 }
             } else {
-                logger.info("File does not exist: " + filePath);
+                log.info("File does not exist: " + filePath);
             }
         }
     }

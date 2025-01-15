@@ -3,6 +3,7 @@ package com.piramidacafe.website.config.securityConfig;
 import com.piramidacafe.website.model.User;
 import com.piramidacafe.website.repository.UserRepository;
 import jakarta.servlet.Filter;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -21,13 +22,10 @@ import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
 
     private final UserRepository userRepository;
-
-    public SecurityConfig(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

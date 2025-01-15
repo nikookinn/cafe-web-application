@@ -4,12 +4,14 @@ import com.piramidacafe.website.dto.CampaignDto;
 import com.piramidacafe.website.service.CampaignService;
 import com.piramidacafe.website.service.ContactInformationService;
 import com.piramidacafe.website.service.MenuService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping
 public class MainController {
 
@@ -17,11 +19,6 @@ public class MainController {
     private final CampaignService campaignService;
     private final ContactInformationService informationService;
 
-    public MainController(MenuService menuService, CampaignService campaignService, ContactInformationService informationService) {
-        this.menuService = menuService;
-        this.campaignService = campaignService;
-        this.informationService = informationService;
-    }
 
     @GetMapping
     public String showHomePage(Model model){

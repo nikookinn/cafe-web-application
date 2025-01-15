@@ -7,25 +7,20 @@ import com.piramidacafe.website.mapper.MenuMapper;
 import com.piramidacafe.website.model.Menu;
 import com.piramidacafe.website.repository.MenuRepository;
 import com.piramidacafe.website.service.MenuService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@RequiredArgsConstructor
 @Service
 public class MenuServiceImpl implements MenuService {
 
     private final MenuRepository menuRepository;
     private final MenuMapper menuMapper;
     private final FileStorageService fileStorageService;
-
-    public MenuServiceImpl(MenuRepository menuRepository, MenuMapper menuMapper, FileStorageService fileStorageService) {
-        this.menuRepository = menuRepository;
-        this.menuMapper = menuMapper;
-        this.fileStorageService = fileStorageService;
-    }
 
     @Override
     public void saveMenu(MenuDto menuDto) {

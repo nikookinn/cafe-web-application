@@ -8,21 +8,16 @@ import com.piramidacafe.website.model.ContactInformation;
 import com.piramidacafe.website.model.Item;
 import com.piramidacafe.website.repository.ContactInformationRepository;
 import com.piramidacafe.website.service.ContactInformationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class ContactInformationServiceImpl implements ContactInformationService {
     private final ContactInformationMapper mapper;
     private final ContactInformationRepository contactInformationRepository;
     private final FileStorageService fileStorageService;
-
-    public ContactInformationServiceImpl(ContactInformationMapper mapper, ContactInformationRepository contactInformationRepository, FileStorageService fileStorageService) {
-        this.mapper = mapper;
-        this.contactInformationRepository = contactInformationRepository;
-        this.fileStorageService = fileStorageService;
-    }
 
     // this method is for saving and updating the contact information,
     // when there is no record on database we are creating new ContactInformation object

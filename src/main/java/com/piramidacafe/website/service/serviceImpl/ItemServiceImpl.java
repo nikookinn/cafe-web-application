@@ -12,12 +12,13 @@ import com.piramidacafe.website.model.Item;
 import com.piramidacafe.website.repository.ItemRepository;
 import com.piramidacafe.website.service.CategoryService;
 import com.piramidacafe.website.service.ItemService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class ItemServiceImpl implements ItemService {
 
@@ -25,13 +26,6 @@ public class ItemServiceImpl implements ItemService {
     private final FileStorageService fileStorageService;
     private final CategoryService categoryService;
     private final ItemMapper itemMapper;
-
-    public ItemServiceImpl(ItemRepository itemRepository, FileStorageService fileStorageService, CategoryService categoryService, ItemMapper itemMapper) {
-        this.itemRepository = itemRepository;
-        this.fileStorageService = fileStorageService;
-        this.categoryService = categoryService;
-        this.itemMapper = itemMapper;
-    }
 
     @Override
     public void saveItem(ItemDto itemDto) {

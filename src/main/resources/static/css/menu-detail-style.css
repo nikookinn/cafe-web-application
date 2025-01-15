@@ -70,7 +70,7 @@
 }
 
 .description-container.has-more:after {
-    content: "Daha çox oxu ↑";
+    content: "Daha çox ↑";
     display: block;
     color: #60A5FA;
     font-size: 0.875rem;
@@ -79,7 +79,7 @@
 }
 
 .description-container.expanded:after {
-    content: "Daha az oxu ↓";
+    content: "Daha az ↓";
 }
 
 .description-container.expanded p {

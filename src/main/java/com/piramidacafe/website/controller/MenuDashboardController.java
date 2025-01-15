@@ -8,6 +8,7 @@ import com.piramidacafe.website.model.Menu;
 import com.piramidacafe.website.service.serviceImpl.FileStorageService;
 import com.piramidacafe.website.service.MenuService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("admin/dashboard/menu")
 public class MenuDashboardController {
 
     private final MenuService menuService;
 
-    public MenuDashboardController(MenuService menuService) {
-        this.menuService = menuService;
-    }
 
     @GetMapping
     public String showMenuInfoPage(@RequestParam(defaultValue = "0") int page,

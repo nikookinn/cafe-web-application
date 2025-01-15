@@ -2,9 +2,10 @@ package com.piramidacafe.website.dto;
 
 import com.piramidacafe.website.annotations.ValidImageFile;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-
+@Data
 public class MenuDto {
 
     private Long menuId;
@@ -17,35 +18,4 @@ public class MenuDto {
     @ValidImageFile
     private MultipartFile menuImage;
 
-    public Long getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getExistingImageUrl() {
-        return existingImageUrl;
-    }
-
-    public void setExistingImageUrl(String existingImageUrl) {
-        this.existingImageUrl = existingImageUrl;
-    }
-
-    public MultipartFile getMenuImage() {
-        return menuImage;
-    }
-
-    public void setMenuImage(MultipartFile menuImage) {
-        this.menuImage = menuImage;
-    }
 }

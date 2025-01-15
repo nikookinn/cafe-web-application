@@ -8,6 +8,7 @@ import com.piramidacafe.website.model.Category;
 import com.piramidacafe.website.repository.CategoryRepository;
 import com.piramidacafe.website.service.CategoryHelperService;
 import com.piramidacafe.website.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,19 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@RequiredArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryHelperService helperService;
     private final CategoryMapper categoryMapper;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryHelperService helperService, CategoryMapper categoryMapper) {
-        this.categoryRepository = categoryRepository;
-        this.helperService = helperService;
-        this.categoryMapper = categoryMapper;
-    }
 
     @Override
     public void saveCategory(CategoryDto dto) {

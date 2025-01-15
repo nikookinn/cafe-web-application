@@ -5,6 +5,7 @@ import com.piramidacafe.website.exception.MenuNotFoundException;
 import com.piramidacafe.website.service.CategoryService;
 import com.piramidacafe.website.service.ItemService;
 import com.piramidacafe.website.service.MenuService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,17 +15,13 @@ import java.util.List;
 
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/menu")
 public class ProductController {
+
     private final CategoryService categoryService;
     private final ItemService itemService;
     private final MenuService menuService;
-
-    public ProductController(CategoryService categoryService, ItemService itemService, MenuService menuService) {
-        this.categoryService = categoryService;
-        this.itemService = itemService;
-        this.menuService = menuService;
-    }
 
     @GetMapping("/{menuName}")
     public String getProductPage(@PathVariable String menuName, Model model) {

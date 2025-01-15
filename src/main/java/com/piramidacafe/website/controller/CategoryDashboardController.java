@@ -5,6 +5,7 @@ import com.piramidacafe.website.model.Menu;
 import com.piramidacafe.website.service.CategoryService;
 import com.piramidacafe.website.service.MenuService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,16 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/admin/dashboard/category")
 public class CategoryDashboardController {
 
     private final CategoryService categoryService;
     private final MenuService menuService;
 
-    public CategoryDashboardController(CategoryService categoryService, MenuService menuService) {
-        this.categoryService = categoryService;
-        this.menuService = menuService;
-    }
 
     @GetMapping
     public String showCategoryPage(@RequestParam(defaultValue = "0") int page,

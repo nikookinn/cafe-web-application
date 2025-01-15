@@ -3,15 +3,13 @@ package com.piramidacafe.website.service.serviceImpl;
 import com.piramidacafe.website.Helper.ImageDirectory;
 import com.piramidacafe.website.dto.CampaignDto;
 import com.piramidacafe.website.service.CampaignHelperService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+@RequiredArgsConstructor
 @Service
 public class CampaignHelperServiceImpl implements CampaignHelperService {
-    private final FileStorageService storageService;
 
-    public CampaignHelperServiceImpl(FileStorageService storageService) {
-        this.storageService = storageService;
-    }
+    private final FileStorageService storageService;
 
     @Override
     public void deleteOldImage(CampaignDto dto) {

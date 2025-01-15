@@ -7,6 +7,7 @@ import com.piramidacafe.website.model.Campaign;
 import com.piramidacafe.website.repository.CampaignRepository;
 import com.piramidacafe.website.service.CampaignHelperService;
 import com.piramidacafe.website.service.CampaignService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@RequiredArgsConstructor
 @Service
 public class CampaignServiceImpl implements CampaignService {
 
@@ -22,11 +23,6 @@ public class CampaignServiceImpl implements CampaignService {
     private final CampaignMapper mapper;
     private final CampaignHelperService helperService;
 
-    public CampaignServiceImpl(CampaignRepository repository, CampaignMapper mapper, CampaignHelperService helperService) {
-        this.repository = repository;
-        this.mapper = mapper;
-        this.helperService = helperService;
-    }
 
     @Override
     public void saveCampaign(CampaignDto campaignDto) {

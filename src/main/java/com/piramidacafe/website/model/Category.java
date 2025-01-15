@@ -1,13 +1,15 @@
 package com.piramidacafe.website.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "categories")
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
@@ -27,64 +29,4 @@ public class Category {
 
     @Column(nullable = false)
     private boolean isActive = true;
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public List<Item> getMenuItems() {
-        return menuItems;
-    }
-
-    public void setMenuItems(List<Item> menuItems) {
-        this.menuItems = menuItems;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", name='" + name + '\'' +
-                ", menu=" + menu +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", menuItems=" + menuItems +
-                ", isActive=" + isActive +
-                '}';
-    }
 }
