@@ -1,9 +1,11 @@
 package com.piramidacafe.website.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "authorities")
 public class Authority {
@@ -18,5 +20,6 @@ public class Authority {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "username", nullable = false)
     private User user;
+
 
 }
