@@ -22,7 +22,7 @@ public class MainController {
     @GetMapping
     public String showHomePage(Model model){
         model.addAttribute("menus",menuService.getActiveMenus());
-        model.addAttribute("campaigns",campaignService.findTop5ByIsActiveTrueOrderByCreatedDateDesc());
+        model.addAttribute("campaigns",campaignService.findTop10ByIsActiveTrueOrderByCreatedDateDesc());
         return "main/home-page";
     }
     @GetMapping("/main-menu")

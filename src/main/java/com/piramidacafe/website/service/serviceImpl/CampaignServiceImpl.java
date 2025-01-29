@@ -55,8 +55,8 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public List<Campaign> findTop5ByIsActiveTrueOrderByCreatedDateDesc() {
-        Pageable pageable = PageRequest.of(0, 5);
+    public List<Campaign> findTop10ByIsActiveTrueOrderByCreatedDateDesc() {
+        Pageable pageable = PageRequest.of(0, 10);
         return repository.findTop5ByIsActiveTrueOrderByCreatedDateDesc(pageable);
     }
 

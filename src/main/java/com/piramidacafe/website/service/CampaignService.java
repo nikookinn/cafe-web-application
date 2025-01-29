@@ -15,7 +15,7 @@ public interface CampaignService {
 
     Campaign findActiveCampaignById(int id);
 
-    List<Campaign> findTop5ByIsActiveTrueOrderByCreatedDateDesc();
+    List<Campaign> findTop10ByIsActiveTrueOrderByCreatedDateDesc();
 
     Page<Campaign> findAllActiveCampaigns(int page, int size);
     List<CampaignDto> findAllActiveCampaigns();
