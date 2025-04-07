@@ -15,6 +15,7 @@ class ThymeleafConfig {
         templateResolver.setPrefix("classpath:/templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setCacheable(true);
         templateResolver.setCacheTTLMs(3600000L); // 1 saat
         return templateResolver;
