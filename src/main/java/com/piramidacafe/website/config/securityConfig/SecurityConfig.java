@@ -55,7 +55,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(new ServletRequiestWrapperFilter(), SecurityContextHolderAwareRequestFilter.class)
+                .addFilterBefore(new ServletRequestWrapperFilter(), SecurityContextHolderAwareRequestFilter.class)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/admin/**").authenticated();
                     auth.requestMatchers("/logout").authenticated();

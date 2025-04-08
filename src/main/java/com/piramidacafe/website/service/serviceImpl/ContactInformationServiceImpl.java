@@ -7,9 +7,11 @@ import com.piramidacafe.website.model.ContactInformation;
 import com.piramidacafe.website.repository.ContactInformationRepository;
 import com.piramidacafe.website.service.ContactInformationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ContactInformationServiceImpl implements ContactInformationService {
@@ -47,6 +49,7 @@ public class ContactInformationServiceImpl implements ContactInformationService 
             iconUrl = fileStorageService.saveIcoFile(dto.getWebsiteIconFile(), ImageDirectory.APP_ICON.getDirectory());
         }
         contactInformationRepository.save(mapper.toEntity(dto, ci, imageUrl, iconUrl));
+        log.info("contact information is updated successfully");
     }
 
 

@@ -8,6 +8,7 @@ import com.piramidacafe.website.repository.CampaignRepository;
 import com.piramidacafe.website.service.CampaignHelperService;
 import com.piramidacafe.website.service.CampaignService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class CampaignServiceImpl implements CampaignService {
 
     private final CampaignRepository repository;
@@ -29,6 +31,7 @@ public class CampaignServiceImpl implements CampaignService {
         String path = helperService.saveAndGetPathOfImage(campaignDto);
         Campaign campaign = mapper.toEntity(campaignDto, path);
         save(campaign);
+        log.info("new campaign successfully added to db with name : "+campaignDto.getName());
     }
 
     @Override
@@ -41,6 +44,7 @@ public class CampaignServiceImpl implements CampaignService {
             campaign.setImageUrl(path);
         }
         update(campaign);
+        log.info("campaign successfully updated with name : "+campaignDto.getName());
     }
 
     @Override
@@ -82,6 +86,7 @@ public class CampaignServiceImpl implements CampaignService {
         helperService.deleteCategoryImageFromStorage(campaign.getImageUrl());
         campaign.setActive(false);
         repository.save(campaign);
+        log.info("campaign successfully removed from db with name : "+campaign.getName());
     }
     @Override
     public void update(Campaign campaign) {

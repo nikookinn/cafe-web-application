@@ -8,20 +8,20 @@ import org.springframework.stereotype.Component;
 public class ContactInformationMapper {
 
     public ContactInformationDto toDto(ContactInformation entity) {
-        ContactInformationDto dto = new ContactInformationDto();
-        dto.setId(entity.getId());
-        dto.setCafeName(entity.getCafeName());
-        dto.setAbout(entity.getAbout());
-        dto.setPhoneNumber(entity.getPhoneNumber());
-        dto.setAddress(entity.getAddress());
-        dto.setWorkingHours(entity.getWorkingHours());
-        dto.setExistingImageUrl(entity.getWebsiteImageUrl());
-        dto.setEmail(entity.getEmail());
-        dto.setInstagramUrl(entity.getInstagramUrl());
-        dto.setFacebookUrl(entity.getFacebookUrl());
-        dto.setTwitterUrl(entity.getTwitterUrl());
-        dto.setWebsiteIcon(entity.getWebsiteIcon());
-        return dto;
+        return ContactInformationDto.builder()
+                .id(entity.getId())
+                .cafeName(entity.getCafeName())
+                .about(entity.getAbout())
+                .phoneNumber(entity.getPhoneNumber())
+                .address(entity.getAddress())
+                .workingHours(entity.getWorkingHours())
+                .existingImageUrl(entity.getWebsiteImageUrl())
+                .email(entity.getEmail())
+                .instagramUrl(entity.getInstagramUrl())
+                .facebookUrl(entity.getFacebookUrl())
+                .twitterUrl(entity.getTwitterUrl())
+                .websiteIcon(entity.getWebsiteIcon())
+                .build();
     }
 
     public ContactInformation toEntity(ContactInformationDto dto, ContactInformation ci, String imageUrl,String iconUrl) {

@@ -13,11 +13,12 @@ import com.piramidacafe.website.repository.ItemRepository;
 import com.piramidacafe.website.service.CategoryService;
 import com.piramidacafe.website.service.ItemService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -36,6 +37,7 @@ public class ItemServiceImpl implements ItemService {
         Category category = categoryService.findActiveCategoryById(itemDto.getCategoryId());
         Item item = itemMapper.toEntity(itemDto, category, imageUrl);
         itemRepository.save(item);
+        log.info("new menu item added successfully to db with name : "+itemDto.getName());
     }
 
     @Override
@@ -64,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
             imageUrl = fileStorageService.storeFile(updateDto.getItemImage(), ImageDirectory.ITEM_IMAGES.getDirectory());
         }
         itemRepository.save(itemMapper.toEntity(updateDto, item, imageUrl));
-
+        log.info("menu item updated successfully with name : "+updateDto.getName());
     }
 
     @Override
@@ -73,6 +75,7 @@ public class ItemServiceImpl implements ItemService {
         fileStorageService.deleteOldImage(item.getImageUrl(), ImageDirectory.ITEM_IMAGES.getDirectory());
         item.setActive(false);
         itemRepository.save(item);
+        log.info("menu item removed successfully with name : "+item.getName());
     }
 
     @Override

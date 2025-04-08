@@ -74,8 +74,8 @@
     display: block;
     color: #60A5FA;
     font-size: 0.875rem;
-    margin-top: 0.25rem; /* Reduced top margin */
-    line-height: 1; /* Tighter line height */
+    margin-top: 0.25rem;
+    line-height: 1;
 }
 
 .description-container.expanded:after {
@@ -126,7 +126,7 @@
     font-size: 0.9rem;
     text-align: left;
     line-height: 1.2;
-    margin-bottom: 0.25rem; /* Added small bottom margin */
+    margin-bottom: 0.25rem;
 }
 .menu-card img {
     width: 100%;
@@ -137,8 +137,8 @@
 
 .text-sm {
     font-size: 0.7rem;
-    line-height: 1.2; /* Adjusted line height */
-    margin: 0; /* Remove default margins */
+    line-height: 1.2;
+    margin: 0;
 }
 
 .text-gray-300 {

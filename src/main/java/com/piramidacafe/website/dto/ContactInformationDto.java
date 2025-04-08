@@ -1,10 +1,16 @@
 package com.piramidacafe.website.dto;
 
 import com.piramidacafe.website.annotations.ValidImageFile;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContactInformationDto {
 
     private Long id;

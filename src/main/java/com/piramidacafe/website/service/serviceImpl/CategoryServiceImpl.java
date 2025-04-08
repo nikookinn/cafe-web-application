@@ -9,6 +9,7 @@ import com.piramidacafe.website.repository.CategoryRepository;
 import com.piramidacafe.website.service.CategoryHelperService;
 import com.piramidacafe.website.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -29,6 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
         String imageUrl = helperService.saveAndGetPathOfImage(dto);
         Category category = categoryMapper.toEntity(dto, imageUrl);
         categoryRepository.save(category);
+        log.info("new category successfully added to db with name : "+dto.getName());
     }
 
     @Override
@@ -38,6 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
         String url = helperService.saveAndGetPathOfImage(dto);
         category = categoryMapper.mapExistingCatToCategory(category, dto, url);
         categoryRepository.save(category);
+        log.info("category successfully updated with name : "+dto.getName());
     }
 
     @Override
@@ -46,6 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
         helperService.deleteCategoryImageFromStorage(category.getImageUrl());
         category.setActive(false);
         categoryRepository.save(category);
+        log.info("category successfully removed from db with name : "+category.getName());
     }
 
     @Override

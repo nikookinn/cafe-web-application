@@ -8,12 +8,14 @@ import com.piramidacafe.website.model.Menu;
 import com.piramidacafe.website.repository.MenuRepository;
 import com.piramidacafe.website.service.MenuService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -30,6 +32,7 @@ public class MenuServiceImpl implements MenuService {
         }
         Menu menu = menuMapper.toEntity(menuDto,imageUrl);
         menuRepository.save(menu);
+        log.info("new main menu added successfully to db with name : "+menuDto.getName());
     }
 
     @Override
@@ -53,6 +56,7 @@ public class MenuServiceImpl implements MenuService {
             imageUrl = fileStorageService.storeFile(menuDto.getMenuImage(), ImageDirectory.MENU_IMAGES.getDirectory());
         }
         menuRepository.save(menuMapper.toEntity(menuDto,menu,imageUrl));
+        log.info("main menu updated successfully with name : "+menuDto.getName());
     }
 
     @Override
@@ -79,5 +83,6 @@ public class MenuServiceImpl implements MenuService {
         fileStorageService.deleteOldImage(existingMenu.getImageUrl(),ImageDirectory.MENU_IMAGES.getDirectory());
         existingMenu.setActive(false);
         menuRepository.save(existingMenu);
+        log.info("main menu item removed successfully with name : "+existingMenu.getName());
     }
 }

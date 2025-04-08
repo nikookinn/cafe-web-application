@@ -17,4 +17,12 @@ public class GlobalExceptionHandler {
         model.addAttribute("errorMessage", ex.getMessage());
         return "errors/error-page";
     }
+
+    @ExceptionHandler(RateLimitExceededException.class)
+    public String handleRateLimitException(RateLimitExceededException ex, Model model) {
+        log.warn("Rate limit exceeded: {}", ex.getMessage());
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "errors/rate-limit-error";
+    }
+
 }

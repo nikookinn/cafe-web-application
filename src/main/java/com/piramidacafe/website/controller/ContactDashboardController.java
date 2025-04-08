@@ -2,6 +2,7 @@ package com.piramidacafe.website.controller;
 
 import com.piramidacafe.website.dto.ContactInformationDto;
 import com.piramidacafe.website.service.ContactInformationService;
+import com.piramidacafe.website.service.VisitorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ContactDashboardController {
 
     private final ContactInformationService contactInformationService;
+    private final VisitorService visitorService;
 
 
     @GetMapping()
     public String showDashboardInfoPage(Model model){
         model.addAttribute("contactInformationDto", contactInformationService.findContactInfo());
+        model.addAttribute("dailyVisitors", visitorService.getDailyVisitors());
+        model.addAttribute("monthlyVisitors",visitorService.getMonthlyVisitors());
+        model.addAttribute("yearlyVisitors",visitorService.getYearlyVisitors());
         return "dashboard/info-dashboard";
     }
 
