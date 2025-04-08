@@ -24,6 +24,7 @@ import java.util.Optional;
 public class SecurityConfig {
 
     private final UserRepository userRepository;
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -61,7 +62,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/logout").authenticated();
                     auth.anyRequest().permitAll();
                 })
-                .formLogin(Customizer.withDefaults()
+                .formLogin(form -> form.successHandler(customAuthenticationSuccessHandler)
                 )
                 .httpBasic(Customizer.withDefaults())
                 .logout(logout -> logout
