@@ -3,7 +3,6 @@ package com.piramidacafe.website.service;
 import com.piramidacafe.website.model.DailyVisit;
 import com.piramidacafe.website.repository.DailyVisitRepository;
 import jakarta.annotation.PreDestroy;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -21,6 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class VisitorService {
     private static final String VISITOR_COOKIE_NAME = "daily_visitor";
     private AtomicInteger visitCounter = new AtomicInteger(0);
+    private final Set<String> todayVisitors = Collections.synchronizedSet(new HashSet<>());
 
     private final DailyVisitRepository dailyVisitRepository;
 
@@ -33,6 +36,16 @@ public class VisitorService {
                 }
             }
         }
+
+
+        String userAgent = request.getHeader("User-Agent");
+        String ip = getClientIp(request);
+        String visitorIdentifier = ip + "|" + (userAgent != null ? userAgent : "");
+
+        if (!todayVisitors.add(visitorIdentifier)) {
+            return false;
+        }
+
         visitCounter.incrementAndGet();
 
         Cookie visitorCookie = new Cookie(VISITOR_COOKIE_NAME,"visited");
@@ -42,9 +55,19 @@ public class VisitorService {
 
         return true;
     }
+    public String getClientIp(HttpServletRequest request) {
+        String remoteAddr = request.getHeader("X-Forwarded-For");
+        if (remoteAddr == null || remoteAddr.isEmpty()) {
+            remoteAddr = request.getRemoteAddr();
+        } else {
+            remoteAddr = remoteAddr.split(",")[0].trim();
+        }
+        return remoteAddr;
+    }
     @Scheduled(cron = "0 59 23 * * *")
     public void saveDailyVisitCount(){
         saveTodayVisitCount();
+        todayVisitors.clear();
     }
     @PreDestroy
     public void saveVisitCountOnShutdown() {

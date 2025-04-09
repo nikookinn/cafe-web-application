@@ -42,6 +42,6 @@ public class AppConfig implements WebMvcConfigurer {
         registry.addInterceptor(visitorCounterInterceptor);
         registry.addInterceptor(rateLimitInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/static/**", "/assets/**");
+                .excludePathPatterns("/static/**", "/assets/**", "/images/**","/css/**");
     }
 }

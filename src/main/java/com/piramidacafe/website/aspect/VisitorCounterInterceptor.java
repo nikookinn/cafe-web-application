@@ -16,7 +16,6 @@ public class VisitorCounterInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestURI = request.getRequestURI();
-        String ipAddress = getClientIp(request);
 
         if (!requestURI.contains("/static/")
                 && !requestURI.contains("/assets/")
@@ -33,7 +32,10 @@ public class VisitorCounterInterceptor implements HandlerInterceptor {
 
             boolean isNewVisitor = visitorService.incrementVisitorCount(request, response);
             if (isNewVisitor){
-                log.info("New Visitor!!! ip address is : "+ipAddress);
+                log.info("New Visitor!!! ip address: {}, User-Agent: {}, Session: {}",
+                        getClientIp(request),
+                        request.getHeader("User-Agent"),
+                        request.getSession(false) != null ? request.getSession().getId() : "no-session");
             }
         }
 
@@ -44,7 +46,10 @@ public class VisitorCounterInterceptor implements HandlerInterceptor {
         String remoteAddr = request.getHeader("X-Forwarded-For");
         if (remoteAddr == null || remoteAddr.isEmpty()) {
             remoteAddr = request.getRemoteAddr();
+        } else {
+            remoteAddr = remoteAddr.split(",")[0].trim();
         }
         return remoteAddr;
     }
+
 }
