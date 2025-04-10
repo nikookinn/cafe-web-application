@@ -11,8 +11,7 @@ public class GlobalExceptionHandler {
             CampaignNotFoundException.class,
             CategoryNotFoundException.class,
             ContactInfoNotFoundException.class,
-            ItemNotFoundException.class,
-            MissingUserAgentException.class})
+            ItemNotFoundException.class})
     public String handleEntityNotFoundException(Exception ex, Model model) {
         log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
         model.addAttribute("errorMessage", ex.getMessage());
