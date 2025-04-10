@@ -38,7 +38,7 @@ public class RateLimitInterceptor implements HandlerInterceptor {
 
     private Bucket newBucket(String ip) {
         return Bucket.builder()
-                .addLimit(limit -> limit.capacity(100).refillGreedy(100,Duration.ofMinutes(1)))
+                .addLimit(limit -> limit.capacity(50).refillGreedy(50,Duration.ofMinutes(1)))
                 .build();
     }
     private String getClientIp(HttpServletRequest request) {
