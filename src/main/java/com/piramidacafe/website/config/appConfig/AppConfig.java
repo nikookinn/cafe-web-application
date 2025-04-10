@@ -1,7 +1,8 @@
 package com.piramidacafe.website.config.appConfig;
 
-import com.piramidacafe.website.aspect.RateLimitInterceptor;
-import com.piramidacafe.website.aspect.VisitorCounterInterceptor;
+import com.piramidacafe.website.interceptor.RateLimitInterceptor;
+import com.piramidacafe.website.interceptor.UserAgentInterceptor;
+import com.piramidacafe.website.interceptor.VisitorCounterInterceptor;
 import com.piramidacafe.website.converter.StringToSimpleCategoryDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ public class AppConfig implements WebMvcConfigurer {
 
     private final VisitorCounterInterceptor visitorCounterInterceptor;
     private final RateLimitInterceptor rateLimitInterceptor;
+    private final UserAgentInterceptor userAgentInterceptor;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
@@ -39,9 +41,14 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(visitorCounterInterceptor);
+        registry.addInterceptor(userAgentInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/static/**", "/assets/**", "/images/**","/css/**","/favicon.ico");
+
         registry.addInterceptor(rateLimitInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/static/**", "/assets/**", "/images/**","/css/**");
+                .excludePathPatterns("/static/**", "/assets/**", "/images/**","/css/**","/favicon.ico");
+
+        registry.addInterceptor(visitorCounterInterceptor);
     }
 }

@@ -1,4 +1,4 @@
-package com.piramidacafe.website.aspect;
+package com.piramidacafe.website.interceptor;
 
 import com.piramidacafe.website.service.VisitorService;
 import jakarta.servlet.http.HttpServletRequest;

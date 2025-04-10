@@ -1,12 +1,10 @@
-package com.piramidacafe.website.aspect;
+package com.piramidacafe.website.interceptor;
 
 import com.piramidacafe.website.exception.RateLimitExceededException;
-import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
