@@ -158,5 +158,3 @@ A comprehensive web application designed for cafes to manage and display their m
 - Multi-language support
 - Dark mode theme
 
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
