@@ -99,7 +99,7 @@
                     <div class="relative">
                         <img src="${item.imageUrl}" alt="Menu Item" class="w-full h-40 sm:h-64 object-cover rounded-t-lg">
                         <span class="absolute top-2 right-2 text-xl font-bold bg-blue-900 bg-opacity-80 text-white px-2 py-1 rounded-lg shadow-lg transform -translate-y-1/5 backdrop-blur-lg">
-                            ${item.price} ₼
+                            ${item.price ? `${item.price} ₼` : '-'}
                         </span>
                     </div>
                     <div class="p-3 sm:p-4 -m-3">
