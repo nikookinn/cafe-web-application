@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 @Slf4j
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String username = authentication.getName();
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException{
         log.info("Admin user logged in successfully at {}", LocalDateTime.now());
         response.sendRedirect("/admin/dashboard");
     }

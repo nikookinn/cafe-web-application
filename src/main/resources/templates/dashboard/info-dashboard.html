@@ -24,54 +24,6 @@
         <div class="header-divider mx-auto"></div>
     </div>
 
-    <!--website visitors statistics-->
-    <div class="row mb-4">
-        <!-- Daily Visitors -->
-        <div class="col-md-4 mb-3">
-            <div class="card stat-card bg-primary text-white">
-                <div class="card-body d-flex align-items-center">
-                    <div class="stat-icon me-3">
-                        <i class="fas fa-users fa-2x"></i>
-                    </div>
-                    <div>
-                        <h5 class="card-title mb-0">Today's Visitors</h5>
-                        <p class="fs-5 mb-0" th:text="${dailyVisitors != null ? dailyVisitors + ' People' : '0 People'}">0 People</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Monthly Visitors -->
-        <div class="col-md-4 mb-3">
-            <div class="card stat-card bg-success text-white">
-                <div class="card-body d-flex align-items-center">
-                    <div class="stat-icon me-3">
-                        <i class="fas fa-chart-line fa-2x"></i>
-                    </div>
-                    <div>
-                        <h5 class="card-title mb-0">This month's Visitors</h5>
-                        <p class="fs-5 mb-0" th:text="${monthlyVisitors != null ? monthlyVisitors + ' People' : '0 People'}">0 People</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Yearly Visitors -->
-        <div class="col-md-4 mb-3">
-            <div class="card stat-card bg-warning text-white">
-                <div class="card-body d-flex align-items-center">
-                    <div class="stat-icon me-3">
-                        <i class="fas fa-calendar-alt fa-2x"></i>
-                    </div>
-                    <div>
-                        <h5 class="card-title mb-0">This year's Visitors</h5>
-                        <p class="fs-5 mb-0" th:text="${yearlyVisitors != null ? yearlyVisitors + ' People' : '0 People'}">0 People</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">

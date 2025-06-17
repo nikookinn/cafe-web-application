@@ -2,7 +2,6 @@ package com.piramidacafe.website.config.appConfig;
 
 import com.piramidacafe.website.interceptor.RateLimitInterceptor;
 import com.piramidacafe.website.interceptor.UserAgentInterceptor;
-import com.piramidacafe.website.interceptor.VisitorCounterInterceptor;
 import com.piramidacafe.website.converter.StringToSimpleCategoryDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class AppConfig implements WebMvcConfigurer {
 
-    private final VisitorCounterInterceptor visitorCounterInterceptor;
     private final RateLimitInterceptor rateLimitInterceptor;
     private final UserAgentInterceptor userAgentInterceptor;
     @Override
@@ -51,8 +49,6 @@ public class AppConfig implements WebMvcConfigurer {
         registry.addInterceptor(rateLimitInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/static/**", "/assets/**", "/images/**","/css/**","/favicon.ico");
-
-        registry.addInterceptor(visitorCounterInterceptor);
     }
 
     @Bean
@@ -62,11 +58,12 @@ public class AppConfig implements WebMvcConfigurer {
                 long heapSize = Runtime.getRuntime().totalMemory();
                 long heapMaxSize = Runtime.getRuntime().maxMemory();
                 long heapFreeSize = Runtime.getRuntime().freeMemory();
-
-                System.out.println("[MEMORY] Allocated Heap: " + (heapSize / 1024 / 1024) + " MB");
-                System.out.println("[MEMORY] Max Heap:       " + (heapMaxSize / 1024 / 1024) + " MB");
-                System.out.println("[MEMORY] Free Heap:      " + (heapFreeSize / 1024 / 1024) + " MB");
-            }, 0, 30, TimeUnit.SECONDS);
+                long used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                System.out.println("[MEMORY] Allocated Heap: " + (heapSize / 1024 / 1024) +
+                        " MB" + "[MEMORY] Max Heap: " + (heapMaxSize / 1024 / 1024) +
+                        " MB" + "[MEMORY] Free Heap:" + (heapFreeSize / 1024 / 1024) +
+                        " MB"+ "[MEMORY] Used: " + (used / 1024 / 1024));
+            }, 0, 30, TimeUnit.MINUTES);
         };
     }
 }
