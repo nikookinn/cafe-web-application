@@ -5,6 +5,8 @@ import com.piramidacafe.website.interceptor.UserAgentInterceptor;
 import com.piramidacafe.website.interceptor.VisitorCounterInterceptor;
 import com.piramidacafe.website.converter.StringToSimpleCategoryDtoConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.CacheControl;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -50,5 +53,20 @@ public class AppConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/static/**", "/assets/**", "/images/**","/css/**","/favicon.ico");
 
         registry.addInterceptor(visitorCounterInterceptor);
+    }
+
+    @Bean
+    public CommandLineRunner startMemoryMonitor() {
+        return args -> {
+            Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+                long heapSize = Runtime.getRuntime().totalMemory();
+                long heapMaxSize = Runtime.getRuntime().maxMemory();
+                long heapFreeSize = Runtime.getRuntime().freeMemory();
+
+                System.out.println("[MEMORY] Allocated Heap: " + (heapSize / 1024 / 1024) + " MB");
+                System.out.println("[MEMORY] Max Heap:       " + (heapMaxSize / 1024 / 1024) + " MB");
+                System.out.println("[MEMORY] Free Heap:      " + (heapFreeSize / 1024 / 1024) + " MB");
+            }, 0, 30, TimeUnit.SECONDS);
+        };
     }
 }
