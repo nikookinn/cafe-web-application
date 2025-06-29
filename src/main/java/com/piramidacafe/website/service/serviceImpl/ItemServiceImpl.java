@@ -1,6 +1,6 @@
 package com.piramidacafe.website.service.serviceImpl;
 
-import com.piramidacafe.website.Helper.ImageDirectory;
+import com.piramidacafe.website.enums.ImageDirectory;
 import com.piramidacafe.website.dto.ItemDto;
 import com.piramidacafe.website.dto.ItemUpdateDto;
 import com.piramidacafe.website.dto.SimpleItemDto;

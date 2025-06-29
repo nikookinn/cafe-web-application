@@ -1,6 +1,6 @@
 package com.piramidacafe.website.service.serviceImpl;
 
-import com.piramidacafe.website.Helper.ImageDirectory;
+import com.piramidacafe.website.enums.ImageDirectory;
 import com.piramidacafe.website.dto.ContactInformationDto;
 import com.piramidacafe.website.mapper.ContactInformationMapper;
 import com.piramidacafe.website.model.ContactInformation;
@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service

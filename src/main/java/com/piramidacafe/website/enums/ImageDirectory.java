@@ -1,4 +1,4 @@
-package com.piramidacafe.website.Helper;
+package com.piramidacafe.website.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

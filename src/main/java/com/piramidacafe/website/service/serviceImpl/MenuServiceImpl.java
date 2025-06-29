@@ -1,6 +1,6 @@
 package com.piramidacafe.website.service.serviceImpl;
 
-import com.piramidacafe.website.Helper.ImageDirectory;
+import com.piramidacafe.website.enums.ImageDirectory;
 import com.piramidacafe.website.dto.MenuDto;
 import com.piramidacafe.website.exception.MenuNotFoundException;
 import com.piramidacafe.website.mapper.MenuMapper;
@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
