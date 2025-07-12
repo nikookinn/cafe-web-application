@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:9.1.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: qwertyuiop
+      MYSQL_DATABASE: piramida-cafe-database
+      MYSQL_USER: nikookinn
+      MYSQL_PASSWORD: qwertyuiop
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  piramida_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: piramida_app
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      PROD_DB_HOST: mysql
+      PROD_DB_PORT: 3306
+      PROD_DB_NAME: piramida-cafe-database
+      PROD_DB_USERNAME: nikookinn
+      PROD_DB_PASSWORD: qwertyuiop
+    volumes:
+      - app-images:/app/images
+
+volumes:
+  mysql-data:
+  app-images:
